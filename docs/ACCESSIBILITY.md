@@ -43,7 +43,11 @@ Everything that works with a mouse works with a keyboard alone, in a sensible or
 | `Button` | Enter or Space activates it. With `href` it's a link: Enter follows it. Use `href` only for navigation, never for actions. A disabled Button is skipped by Tab. |
 | `Card` | Not focusable itself. If the whole card should open something, put one link on the title and stretch its click area over the card with CSS; never nest buttons inside a clickable card. |
 | `Table` | Not interactive. If a row opens a record, put a link in the row's first cell instead of making the row clickable. |
-| `Callout`, `Eyebrow`, `SectionHeader`, `Surface` | Not interactive; never focusable. |
+| `Input`, `Select`, `Textarea` | Native controls: Tab to reach, type or use arrow keys. Wrap each in `Field` so its label, help and error are announced. |
+| `Checkbox`, `Radio` | Space toggles a checkbox. In a radio group (inside a `fieldset` with a `legend`), arrow keys move between options. The whole label is clickable. |
+| `ThemeToggle` | A button: Enter or Space switches the theme. |
+| `Callout`, `Eyebrow`, `SectionHeader`, `Surface`, `Badge` | Not interactive; never focusable. |
+| `Alert` | Not focusable. `tone="danger"` is announced immediately (`role="alert"`); other tones are announced politely (`role="status"`). |
 
 Future interactive components follow these patterns:
 
@@ -86,12 +90,19 @@ All Storyville apps share one set of shortcuts, so people learn them once.
 
 ## Forms
 
+- Build forms from `Field` plus `Input`, `Select`, `Textarea`, `Checkbox` and `Radio`. `Field` connects the label, help text and error to the control for screen readers.
 - Every field has a visible `<label>`. A placeholder is never the label.
 - Mark required fields with the word "(required)" in the label, not an asterisk or color alone.
-- Error messages are text, placed directly under the field and linked to it with `aria-describedby`: "Enter a shoot date", not just a red border. Error text is `svr-color-accent` on `svr-color-bg` (6.4:1 light, 5.8:1 dark) and starts with an icon or the word "Error:" so it doesn't rely on red.
+- Error messages are text, placed directly under the field and linked to it with `aria-describedby`: "Enter a shoot date", not just a red border. Error text is `svr-color-danger` (never the brand red) and starts with the word "Error:" so it doesn't rely on color. `Field` does both.
 - On submit, move focus to the first field with an error, or to an error summary at the top that links to each field.
-- Group related choices (radio buttons, checkboxes) in a `<fieldset>` with a `<legend>`.
+- Group related choices (radio buttons, checkboxes) in a `<fieldset>` with a `<legend>` (`svr-fieldset`).
+- Control boundaries (input edges, checkbox and radio boxes) use `svr-color-border-strong`, which passes 3:1 in both themes (WCAG 1.4.11). The soft `svr-color-border` is for decorative dividers only.
+- Show statuses as words (`Badge`), never as a colored dot alone.
 - Use the right input type (`email`, `tel`, `date`) and `autocomplete` values so phones show the right keyboard and browsers can autofill.
+
+## High contrast mode
+
+Windows High Contrast (forced colors) replaces every color with the user's system colors and drops fills. The brand components add borders there so buttons, cards, callouts, alerts, badges, popovers and bands stay visible, and focus rings use the system highlight color. When an app builds its own components, check them with forced colors turned on (in Chrome DevTools: Rendering, then Emulate CSS forced-colors).
 
 ## Structure and touch
 

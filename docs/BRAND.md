@@ -40,13 +40,40 @@ Colors come in two layers.
 | `svr-color-accent` | Storyville Red | Red tint #E07B72 | Red text and rules: Bebas headlines, eyebrows, links, error text, accent rules, outline buttons, callout borders |
 | `svr-color-accent-fill` | Storyville Red | Storyville Red | Red fills: primary buttons, table header rows |
 | `svr-color-on-accent` | Off-White | Off-White | Text on `svr-color-accent-fill` |
+| `svr-color-text-muted` | #655C57 | #A39A95 | Helper text, timestamps, metadata |
+| `svr-color-border-strong` | #857C77 | #8C837E | Boundaries that carry meaning: inputs, checkboxes, popovers (≥3:1) |
+| `svr-color-focus` | Soft Charcoal | Off-White | Focus rings |
+| `svr-color-placeholder` | = text-muted | = text-muted | Placeholder text |
+| `svr-color-disabled-bg` / `-text` | Border Gray / charcoal | Dark border / off-white | Disabled controls |
+| `svr-color-link` / `-hover` | = accent / heading | = accent / heading | Links (always underlined) |
+| `svr-color-overlay` | charcoal at 55% | near-black at 72% | Scrim behind dialogs |
 
+- Use `svr-color-border` for decorative dividers only. Anything a person has to see to use, such as an input edge, a checkbox or a popover edge, takes `svr-color-border-strong`, which passes 3:1 (WCAG 1.4.11).
 - Style apps with the role tokens only. Use a palette token directly only for something that must look the same in both themes.
 - **Off-White replaces pure #FFFFFF and Soft Charcoal replaces pure #000000, everywhere.** Never use either pure value as a background or as text.
 - In dark mode, body copy is Muted Off-White, not full Off-White; the step down reduces halation on long reads. Headings and short labels stay full Off-White.
 - Red accents, it doesn't dominate: don't use `svr-color-accent-fill` as a large fill except for one closing call-to-action band.
 - Never mix warm and cool whites in one layout (e.g. #FAF8F5 with #F5F5F3).
 - The true Storyville Red (#A72F2F) is only 2.5:1 on charcoal, so it never appears as text in dark mode; `svr-color-accent` switches to the #E07B72 tint there. Red *fills* keep the true red in both themes.
+
+### Status colors
+
+Status colors are for state, never decoration. Each one has three tokens: the color itself for text, icons, borders and solid fills; `-subtle` for tinted backgrounds; and `on-` for text on a solid fill. All of them pass 4.5:1 in both themes.
+
+| Status | Light | Dark | Use for |
+| --- | --- | --- | --- |
+| `svr-color-danger` | #9B1C3A | #F08BA0 | Errors, destructive actions, declined |
+| `svr-color-success` | #23695C | #76C2B0 | Success, completed, accepted |
+| `svr-color-warning` | #8A5300 | #E3A94F | Warnings, pending, needs attention |
+| `svr-color-info` | #2C5E8A | #8DB8E0 | Information, sent, in progress |
+
+- Danger is a deep crimson, deliberately different from Storyville Red, so an error never reads as brand decoration. Never use `svr-color-accent` for errors.
+- Status is never shown by color alone. A badge says the word ("Declined"), and an alert has a title ("Error"). Success is a teal-green so it stays distinct from danger for people with red–green color blindness.
+- Show statuses with `Badge` and messages with `Alert`. Destructive buttons use `Button variant="danger"`.
+
+### Charts
+
+`svr-color-chart-1` to `-5` are Storyville Red, blue, amber, green and warm gray, each with a lighter version for dark mode. Every series passes 3:1 against the background. Label series directly or in a legend; never tell them apart by color alone.
 
 ### Approved pairings (WCAG 2.1)
 
@@ -58,6 +85,8 @@ Colors come in two layers.
 | `svr-color-accent` | `svr-color-bg` | 6.4:1 (AA) | 5.8:1 (AA) |
 | `svr-color-accent` | `svr-color-surface-alt` | 5.8:1 (AA) | 5.0:1 (AA) |
 | `svr-color-on-accent` | `svr-color-accent-fill` | 6.4:1 (AA) | 6.4:1 (AA) |
+| `svr-color-text-muted` | `svr-color-bg` / `surface-alt` | 6.2 / 5.6 (AA) | 6.1 / 5.2 (AA) |
+| status colors | `svr-color-bg`, `surface-alt`, own `-subtle` | ≥5.3 (AA) | ≥6.1 (AA) |
 
 These are the only approved text pairings.
 
@@ -71,6 +100,8 @@ Every Storyville app supports both themes and has a visible light/dark toggle.
 - Never hard-code a color, or a light/dark pair of colors, in app CSS. Use the role tokens and the theme takes care of itself.
 - Check both themes before shipping: every screen, every state.
 - Logos switch too: charcoal versions in light mode, off-white versions in dark mode.
+- **Pin a part of a page to one theme:** put `data-theme="light"` (or `"dark"`) on any element and everything inside it uses that theme, whatever the rest of the page does. Client-facing pages, proposals and print views pin to light: put `data-theme="light"` on `<html>`, or on the wrapper around client content inside a staff app.
+- **Printing is always light**, whatever the screen theme, so printouts and PDFs never come out charcoal.
 
 ## Typography
 
@@ -78,9 +109,28 @@ Two typefaces, both open-licensed (SIL Open Font License) and bundled with the s
 
 - **Bebas Neue** (`--svr-font-display`) for all display and heading roles: `svr-display-h1` (Display/H1, 36–48pt, 48–64px on screen) and `svr-subheading-h2` (sub-sections, card headers, 24–30pt, 32–40px). Bebas Neue is display only: never use it for body copy or captions.
 - **Source Sans 3** (`--svr-font-body`) for everything else: `svr-eyebrow` (bold, uppercase, tracked), `svr-body` (all running copy, 10–11pt), `svr-caption` (captions and fine print, 8–9pt), `svr-table-header` (10pt bold, `svr-color-on-accent` on `svr-color-accent-fill`) and `svr-table-body` (10pt). Never use it for hero headlines.
-- Bebas headlines are `svr-color-accent`; section and card titles are `svr-color-heading`.
+- **Smaller headings:** `svr-h3` is Bebas Neue at 32px, for sub-sections. `svr-h4` is Source Sans 3 bold at 18px, uppercase and tracked, for small headings under an H3.
+- **App UI text:** `svr-ui` is 14px, for form controls, menus, dense tables and metadata. Use `svr-body` (15px) for anything people read.
+- Bebas headlines (`svr-h1`, `svr-h2`, `svr-h3`) are `svr-color-accent`; `svr-h4`, section titles and card titles are `svr-color-heading`.
 - Where fonts can't be embedded (e.g. Word, Outlook), fall back to **Arial Bold** for headings and **Calibri** for body.
 - Print sizes are in points; screen sizes convert at 1pt ≈ 1.33px.
+
+## Long-form content
+
+Wrap articles, proposals, help pages and anything people write in a rich-text editor in `svr-prose`. It styles the plain HTML tags (`h2`–`h4`, paragraphs, lists, links, quotes, rules, images and tables) at 16px with 1.75 line spacing. Content shown to clients goes inside `data-theme="light"`.
+
+## Links and selection
+
+- Links (`svr-link`, and every link inside `svr-prose`) are `svr-color-link` and always underlined. They thicken the underline and turn `svr-color-heading` on hover.
+- Selected text is Storyville Red with off-white text in both themes.
+
+## Overlays
+
+The brand uses no drop shadows, overlays included:
+
+- **Dialogs, drawers and modals** sit on a `svr-color-overlay` scrim (`svr-overlay`). The dialog itself (`svr-dialog`) is `svr-color-bg`, with a `svr-color-border-strong` edge and the red top rule.
+- **Popovers, dropdown menus, comboboxes and tooltips** (`svr-popover`) are `svr-color-surface-alt` with a `svr-color-border-strong` edge.
+- **Toasts** use `Alert`.
 
 ## Layout, spacing and shape
 
@@ -106,6 +156,8 @@ See [the component docs](components/). `Button` (CTA), `Eyebrow`, `SectionHeader
 - `inverse`: the opposite theme, so a charcoal band in light mode and an off-white band in dark mode.
 - `red`: Storyville Red in both themes.
 
+Status and form pieces: `Badge` (status pills), `Alert` (status messages), `Field` (label, help text and error wired to one control), `Input`, `Select`, `Textarea`, `Checkbox` and `Radio`. Dialogs, tabs, menus and tooltips come from each app's own library (shadcn/Radix in Tailwind apps), styled with the overlay rules above and the role tokens.
+
 Keyboard behavior for each component is in [ACCESSIBILITY.md](ACCESSIBILITY.md#by-component).
 
 ## Code conventions
@@ -114,6 +166,8 @@ Keyboard behavior for each component is in [ACCESSIBILITY.md](ACCESSIBILITY.md#b
 - **Cascade layer:** all of the system's CSS (tokens, type styles, components) sits in the `svr` cascade layer. An app sets the layer order once, before any stylesheet loads, so brand styles sit above its resets and below its utilities and local overrides. For a Tailwind app: `@layer theme, base, svr, components, utilities;`. CSS written outside any layer overrides every layer, brand styles included.
 
 ## Accessibility
+
+In Windows High Contrast mode (forced colors), components keep visible borders and focus rings, since that mode removes fills.
 
 Every app, page and document meets WCAG 2.2 AA in both themes. [ACCESSIBILITY.md](ACCESSIBILITY.md) covers alt text (logos use the text they contain), keyboard behavior, the shared keyboard shortcuts, motion and video captions, and forms.
 

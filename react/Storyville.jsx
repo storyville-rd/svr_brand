@@ -62,6 +62,61 @@ export function Surface({ tone = 'default', as: Tag = 'section', className, styl
   return <Tag className={cx('svr-surface', SURFACE[tone], 'svr-body', className)} style={style}>{children}</Tag>;
 }
 
+// ---------- Status ----------
+const ALERT_WORD = { danger: 'Error', success: 'Success', warning: 'Warning', info: 'Note' };
+
+export function Badge({ tone = 'neutral', variant = 'subtle', className, children }) {
+  return <span className={cx('svr-badge', `svr-badge-${tone}`, variant === 'solid' && 'svr-badge-solid', className)}>{children}</span>;
+}
+
+export function Alert({ tone = 'info', title, className, children }) {
+  return (
+    <div className={cx('svr-alert', `svr-alert-${tone}`, 'svr-body', className)} role={tone === 'danger' ? 'alert' : 'status'}>
+      <span className="svr-alert-title svr-table-header">{title || ALERT_WORD[tone]}</span>
+      <div className="svr-alert-body">{typeof children === 'string' ? <p>{children}</p> : children}</div>
+    </div>
+  );
+}
+
+// ---------- Forms ----------
+// Field wires the label, help and error to its one control (ids, aria-describedby, aria-invalid, required).
+export function Field({ label, help, error, required, optional, id, className, children }) {
+  const auto = React.useId();
+  const cid = id || (children && children.props && children.props.id) || `svr-${auto}`;
+  const helpId = help ? `${cid}-help` : undefined;
+  const errId = error ? `${cid}-error` : undefined;
+  const describedBy = [helpId, errId].filter(Boolean).join(' ') || undefined;
+  const control = React.isValidElement(children)
+    ? React.cloneElement(children, { id: cid, 'aria-describedby': describedBy, 'aria-invalid': error ? true : undefined, required: required || children.props.required })
+    : children;
+  return (
+    <div className={cx('svr-field', className)}>
+      <label className="svr-label" htmlFor={cid}>
+        {label}{required && <span className="svr-label-required"> (required)</span>}{optional && <span className="svr-label-optional"> (optional)</span>}
+      </label>
+      {help && <p className="svr-help" id={helpId}>{help}</p>}
+      {control}
+      {error && <p className="svr-error" id={errId}>Error: {error}</p>}
+    </div>
+  );
+}
+
+export const Input = React.forwardRef(function Input({ className, ...rest }, ref) {
+  return <input ref={ref} {...rest} className={cx('svr-input', className)} />;
+});
+export const Textarea = React.forwardRef(function Textarea({ className, ...rest }, ref) {
+  return <textarea ref={ref} {...rest} className={cx('svr-textarea', className)} />;
+});
+export const Select = React.forwardRef(function Select({ className, children, ...rest }, ref) {
+  return <select ref={ref} {...rest} className={cx('svr-select', className)}>{children}</select>;
+});
+export const Checkbox = React.forwardRef(function Checkbox({ label, className, ...rest }, ref) {
+  return <label className={cx('svr-choice', className)}><input ref={ref} type="checkbox" {...rest} className="svr-checkbox" /><span>{label}</span></label>;
+});
+export const Radio = React.forwardRef(function Radio({ label, className, ...rest }, ref) {
+  return <label className={cx('svr-choice', className)}><input ref={ref} type="radio" {...rest} className="svr-radio" /><span>{label}</span></label>;
+});
+
 // Light/dark mode. Needs js/theme.js loaded in the page <head> (it defines window.svrTheme).
 export function useTheme() {
   const [theme, setThemeState] = React.useState('light');

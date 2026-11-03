@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"Storyville","components":[{"name":"Button"},{"name":"Eyebrow"},{"name":"SectionHeader"},{"name":"Callout"},{"name":"Table"},{"name":"Card"},{"name":"Surface"},{"name":"ThemeToggle"}]} */
+/* @ds-bundle: {"format":4,"namespace":"Storyville","components":[{"name":"Button"},{"name":"Eyebrow"},{"name":"SectionHeader"},{"name":"Callout"},{"name":"Table"},{"name":"Card"},{"name":"Surface"},{"name":"ThemeToggle"},{"name":"Badge"},{"name":"Alert"},{"name":"Field"},{"name":"Input"},{"name":"Textarea"},{"name":"Select"},{"name":"Checkbox"},{"name":"Radio"}]} */
 (function () {
   var R = window.React, h = R.createElement;
   function cx() { return Array.prototype.filter.call(arguments, Boolean).join(' '); }
@@ -53,6 +53,52 @@
     return h(p.as || 'section', { className: cx('svr-surface', SURFACE[p.tone || 'default'], 'svr-body', p.className), style: p.style }, p.children);
   }
 
+  // Status
+  var ALERT_WORD = { danger: 'Error', success: 'Success', warning: 'Warning', info: 'Note' };
+  function Badge(p) {
+    var tone = p.tone || 'neutral';
+    return h('span', { className: cx('svr-badge', 'svr-badge-' + tone, p.variant === 'solid' && 'svr-badge-solid', p.className) }, p.children);
+  }
+  function Alert(p) {
+    var tone = p.tone || 'info';
+    return h('div', { className: cx('svr-alert', 'svr-alert-' + tone, 'svr-body', p.className), role: tone === 'danger' ? 'alert' : 'status' },
+      h('span', { className: 'svr-alert-title svr-table-header' }, p.title || ALERT_WORD[tone]),
+      h('div', { className: 'svr-alert-body' }, typeof p.children === 'string' ? h('p', null, p.children) : p.children));
+  }
+
+  // Forms
+  function Field(p) {
+    var auto = R.useId();
+    var child = p.children;
+    var cid = p.id || (child && child.props && child.props.id) || ('svr-' + auto);
+    var helpId = p.help ? cid + '-help' : undefined, errId = p.error ? cid + '-error' : undefined;
+    var describedBy = [helpId, errId].filter(Boolean).join(' ') || undefined;
+    var control = R.isValidElement(child)
+      ? R.cloneElement(child, { id: cid, 'aria-describedby': describedBy, 'aria-invalid': p.error ? true : undefined, required: p.required || child.props.required })
+      : child;
+    return h('div', { className: cx('svr-field', p.className) },
+      h('label', { className: 'svr-label', htmlFor: cid }, p.label,
+        p.required ? h('span', { className: 'svr-label-required' }, ' (required)') : null,
+        p.optional ? h('span', { className: 'svr-label-optional' }, ' (optional)') : null),
+      p.help ? h('p', { className: 'svr-help', id: helpId }, p.help) : null,
+      control,
+      p.error ? h('p', { className: 'svr-error', id: errId }, 'Error: ', p.error) : null);
+  }
+  function control(tag, cls) {
+    return R.forwardRef(function (p, ref) {
+      var rest = omit(p, ['className']); rest.ref = ref; rest.className = cx(cls, p.className);
+      return h(tag, rest, tag === 'select' ? p.children : undefined);
+    });
+  }
+  var Input = control('input', 'svr-input'), Textarea = control('textarea', 'svr-textarea'), Select = control('select', 'svr-select');
+  function choice(type, cls) {
+    return R.forwardRef(function (p, ref) {
+      var rest = omit(p, ['label', 'className']); rest.ref = ref; rest.type = type; rest.className = cls;
+      return h('label', { className: cx('svr-choice', p.className) }, h('input', rest), h('span', null, p.label));
+    });
+  }
+  var Checkbox = choice('checkbox', 'svr-checkbox'), Radio = choice('radio', 'svr-radio');
+
   // Light/dark mode. Uses window.svrTheme from js/theme.js.
   function currentTheme() {
     if (window.svrTheme) return window.svrTheme.get();
@@ -78,5 +124,5 @@
 
   var C = window;
   C.Storyville = C.Storyville || {};
-  Object.assign(C.Storyville, { Button: Button, Eyebrow: Eyebrow, SectionHeader: SectionHeader, Callout: Callout, Table: Table, Card: Card, Surface: Surface, ThemeToggle: ThemeToggle });
+  Object.assign(C.Storyville, { Button: Button, Eyebrow: Eyebrow, SectionHeader: SectionHeader, Callout: Callout, Table: Table, Card: Card, Surface: Surface, ThemeToggle: ThemeToggle, Badge: Badge, Alert: Alert, Field: Field, Input: Input, Textarea: Textarea, Select: Select, Checkbox: Checkbox, Radio: Radio });
 })();

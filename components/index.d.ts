@@ -1,8 +1,8 @@
 import type * as React from 'react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** primary = red CTA fill; secondary = red outline. Default primary. */
-  variant?: 'primary' | 'secondary';
+  /** primary = red CTA fill; secondary = red outline; danger = destructive action (crimson). Default primary. */
+  variant?: 'primary' | 'secondary' | 'danger';
   size?: 'md' | 'sm';
   /** Renders an <a> instead of a <button>. */
   href?: string;
@@ -49,6 +49,34 @@ export interface SurfaceProps {
 }
 export declare function Surface(props: SurfaceProps): React.ReactElement;
 
+export type StatusTone = 'danger' | 'success' | 'warning' | 'info';
+export interface BadgeProps { tone?: 'neutral' | 'accent' | StatusTone; variant?: 'subtle' | 'solid'; className?: string; children?: React.ReactNode }
+/** A status pill: one or two words, uppercase. The word carries the meaning; color reinforces it. */
+export declare function Badge(props: BadgeProps): React.ReactElement;
+export interface AlertProps { tone?: StatusTone; /** Defaults to Error / Success / Warning / Note. */ title?: string; className?: string; children?: React.ReactNode }
+/** A status message box. tone="danger" is announced immediately (role="alert"); others politely (role="status"). */
+export declare function Alert(props: AlertProps): React.ReactElement;
+
+export interface FieldProps {
+  label: React.ReactNode;
+  help?: React.ReactNode;
+  /** Error message; shown as "Error: …", linked to the control and sets aria-invalid. */
+  error?: React.ReactNode;
+  required?: boolean;
+  optional?: boolean;
+  id?: string;
+  className?: string;
+  /** Exactly one control: Input, Select or Textarea. */
+  children: React.ReactElement;
+}
+export declare function Field(props: FieldProps): React.ReactElement;
+export declare const Input: React.ForwardRefExoticComponent<React.InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<HTMLInputElement>>;
+export declare const Textarea: React.ForwardRefExoticComponent<React.TextareaHTMLAttributes<HTMLTextAreaElement> & React.RefAttributes<HTMLTextAreaElement>>;
+export declare const Select: React.ForwardRefExoticComponent<React.SelectHTMLAttributes<HTMLSelectElement> & React.RefAttributes<HTMLSelectElement>>;
+export type ChoiceProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & { label: React.ReactNode };
+export declare const Checkbox: React.ForwardRefExoticComponent<ChoiceProps & React.RefAttributes<HTMLInputElement>>;
+export declare const Radio: React.ForwardRefExoticComponent<ChoiceProps & React.RefAttributes<HTMLInputElement>>;
+
 export interface ThemeToggleProps { className?: string }
 /** A "Dark mode" toggle button (aria-pressed). Needs js/theme.js in the page head. */
 export declare function ThemeToggle(props: ThemeToggleProps): React.ReactElement;
@@ -65,7 +93,7 @@ export interface SvrTheme {
 
 declare global {
   interface Window {
-    Storyville: { Button: typeof Button; Eyebrow: typeof Eyebrow; SectionHeader: typeof SectionHeader; Callout: typeof Callout; Table: typeof Table; Card: typeof Card; Surface: typeof Surface; ThemeToggle: typeof ThemeToggle };
+    Storyville: { Button: typeof Button; Eyebrow: typeof Eyebrow; SectionHeader: typeof SectionHeader; Callout: typeof Callout; Table: typeof Table; Card: typeof Card; Surface: typeof Surface; ThemeToggle: typeof ThemeToggle; Badge: typeof Badge; Alert: typeof Alert; Field: typeof Field; Input: typeof Input; Textarea: typeof Textarea; Select: typeof Select; Checkbox: typeof Checkbox; Radio: typeof Radio };
     /** From js/theme.js. */
     svrTheme: SvrTheme;
   }

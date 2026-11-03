@@ -1,0 +1,77 @@
+# Changelog
+
+Every release is a git tag. Breaking releases (a new major number) list what each app has to change.
+
+## 3.1.0
+
+Everything in this release is an addition, so apps on 3.0.0 can update without changes.
+
+- **Status colors:** `--svr-color-danger`, `success`, `warning` and `info`, each with `-subtle` and `on-` variants, in both themes. Danger is a deep crimson, kept apart from brand red.
+- **New tokens:**
+  - `--svr-color-text-muted`
+  - `--svr-color-border-strong` (≥3:1, for control boundaries)
+  - `--svr-color-focus`
+  - `--svr-color-placeholder`
+  - `--svr-color-disabled-bg` and `--svr-color-disabled-text`
+  - `--svr-color-link` and `--svr-color-link-hover`
+  - `--svr-color-overlay`
+  - `--svr-color-chart-1` to `-5`
+- **Type styles:** `svr-h3`, `svr-h4` and `svr-ui` (14px).
+- **Components:**
+  - `Badge` and `Alert`.
+  - `Field`, `Input`, `Select`, `Textarea`, `Checkbox` and `Radio`.
+  - A `danger` variant for `Button`.
+  - The `svr-link`, `svr-muted`, `svr-prose`, `svr-popover`, `svr-dialog`, `svr-overlay` and `svr-fieldset` classes.
+- **Styles everywhere:** `::selection`, plus Windows High Contrast (`forced-colors`) rules.
+- **Print** is always light.
+- **`theme.js`** now always sets `data-theme` to the resolved theme, so Tailwind's `dark:` variant works. It still follows the device setting until someone picks a theme.
+- **`dist/tailwind-bridge.css`:** Tailwind v4 utilities for every token, plus the shadcn/ui variable mapping.
+- **`icons/`:** `favicon.svg` (switches color in dark tabs), `favicon.ico`, `apple-touch-icon.png`, and 192px and 512px icons.
+- **New docs and files:** `manifest.json` (every file with its size and SHA-256), `INSTALL.md`, `CHANGELOG.md`, `VERSION` and `docs/EMAIL.md`.
+- **The design system's inverse-band rules** are now generated from `tokens.json`, so every role token flips correctly inside `svr-surface-inverse`.
+
+## 3.0.0 (breaking)
+
+- **Light and dark themes** with role tokens, `js/theme.js` and the `ThemeToggle` component.
+- **Every CSS variable** is prefixed `--svr-`, and colors are split into palette (`--svr-palette-*`) and role (`--svr-color-*`) tokens.
+- **All brand CSS** is in `@layer svr`. Apps declare `@layer theme, base, svr, components, utilities;` first.
+
+Migration:
+
+| 2.x | 3.0 |
+| --- | --- |
+| `--color-bg-light` | `--svr-color-bg` |
+| `--color-text-primary` | `--svr-color-text` (body) or `--svr-color-heading` (titles) |
+| `--color-accent` | `--svr-color-accent` (text, rules) or `--svr-color-accent-fill` (fills) |
+| `--color-text-reversed` | `--svr-color-on-accent`, or `--svr-color-heading` inside an inverse band |
+| `--color-bg-dark`, `--color-text-body-dark` | an inverse band (`svr-surface-inverse`) plus the normal role tokens |
+| `--color-surface-alt`, `--color-border` | `--svr-color-surface-alt`, `--svr-color-border` |
+| `--space-*`, `--radius-*`, `--rule-*` | `--svr-space-*`, `--svr-radius-*`, `--svr-rule-*` |
+| `--font-display`, `--font-body` | `--svr-font-display`, `--svr-font-body` |
+| `svr-surface-dark`, `svr-surface-light` | `svr-surface-inverse`, plain `svr-surface` |
+| `svr-table-dark` | `svr-table-inverse` |
+
+The React `tone` and `header` props still accept the old names.
+
+## 2.0.0 (breaking)
+
+Every CSS class is prefixed `svr-`.
+
+Migration:
+
+- Rename `sv-…` to `svr-…`.
+- Rename the type styles `display-h1`, `subheading-h2`, `eyebrow`, `body`, `caption`, `table-header` and `table-body` to `svr-display-h1` and so on.
+- Copy in the new `react/Storyville.jsx`.
+
+## 1.2.0
+
+- Bebas Neue and Source Sans 3 are bundled as WOFF2 files in `fonts/`, so nothing loads from Google Fonts.
+
+## 1.1.0
+
+- `docs/ACCESSIBILITY.md` covers alt text, keyboard behavior, shared shortcuts, motion and media, and forms.
+- Buttons respect the reduce-motion setting.
+
+## 1.0.0
+
+- First release: tokens, logos, brand guidelines, and the Button, Eyebrow, SectionHeader, Callout, Table, Card and Surface components.
