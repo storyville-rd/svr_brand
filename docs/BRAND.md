@@ -40,7 +40,7 @@ These are the only approved text pairings. **Never set red text on `color-bg-dar
 
 ## Typography
 
-Two typefaces, both from Google Fonts (open license); embed them in digital products.
+Two typefaces, both open-licensed (SIL Open Font License) and bundled in [`fonts/`](../fonts/) as WOFF2 files: link them from this repo, never from Google Fonts or another outside service.
 
 - **Bebas Neue** (`--font-display`) for all display and heading roles: `display-h1` (Display/H1, 36–48pt, 48–64px on screen) and `subheading-h2` (sub-sections, card headers, 24–30pt, 32–40px). Bebas Neue is display only: never use it for body copy or captions.
 - **Source Sans 3** (`--font-body`) for everything else: `eyebrow` (bold, uppercase, tracked), `body` (all running copy, 10–11pt), `caption` (captions and fine print, 8–9pt), `table-header` (10pt bold, reversed on red or dark) and `table-body` (10pt). Never use it for hero headlines.
@@ -57,7 +57,7 @@ Two typefaces, both from Google Fonts (open license); embed them in digital prod
 
 ## Logo
 
-Use the files in [`logos/`](../logos/), never live type or a redrawing. Use the charcoal version on `color-bg-light` and `color-surface-alt`, and the off-white version on `color-bg-dark` and `color-accent`. The stacked logo (mark, wordmark and tagline) is the primary lockup; the horizontal logo (mark beside the wordmark) suits headers, letterhead and email signatures; the wordmark alone suits tight spaces; the S-road mark alone suits favicons and avatars.
+Use the files in [`logos/`](../logos/), never live type or a redrawing. Use the charcoal version on `color-bg-light` and `color-surface-alt`, and the off-white version on `color-bg-dark` and `color-accent`. The stacked logo (mark, wordmark and tagline) is the primary lockup; the horizontal logo (mark beside the wordmark) suits headers, letterhead and email signatures; the wordmark alone suits tight spaces; the S-road mark alone suits favicons and avatars. Alt text for each logo is in [ACCESSIBILITY.md](ACCESSIBILITY.md#logos).
 
 ## Iconography and imagery
 
@@ -65,7 +65,11 @@ The guidelines define no icon set. If a layout needs icons, use simple line icon
 
 ## Components
 
-See [the component docs](components/). `Button` (CTA), `Eyebrow`, `SectionHeader`, `Callout`, `Table`, `Card` and `Surface` (light, alt, dark and red bands) implement these rules. Wrap reversed content in a `Surface` with `tone="dark"` or `tone="red"` and children re-color automatically.
+See [the component docs](components/). `Button` (CTA), `Eyebrow`, `SectionHeader`, `Callout`, `Table`, `Card` and `Surface` (light, alt, dark and red bands) implement these rules. Wrap reversed content in a `Surface` with `tone="dark"` or `tone="red"` and children re-color automatically. Keyboard behavior for each component is in [ACCESSIBILITY.md](ACCESSIBILITY.md#by-component).
+
+## Accessibility
+
+Every app, page and document meets WCAG 2.2 AA. [ACCESSIBILITY.md](ACCESSIBILITY.md) covers alt text (logos use the text they contain), keyboard behavior, the shared keyboard shortcuts, motion and video captions, and forms.
 
 ## Do / don't
 

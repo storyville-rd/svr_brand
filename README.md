@@ -3,17 +3,18 @@
 The single source of truth for Storyville RD's brand in code: color and type tokens, fonts, logos and React components. Every Storyville app links these files from the jsDelivr CDN, so a brand change made here reaches every app.
 
 Brand rules (when to use which color, type and logo): **[docs/BRAND.md](docs/BRAND.md)**.
+Accessibility rules (alt text, keyboard, shared shortcuts, motion, captions, forms): **[docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md)**. Every app follows both.
 
 ## Use it in an app
 
-Every link below is pinned to a release tag (`@v1.0.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
+Every link below is pinned to a release tag (`@v1.2.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
 
 ### 1. Styles (fonts, tokens and component styles)
 
-One stylesheet loads Bebas Neue and Source Sans 3 from Google Fonts, every CSS variable and type class, and the component styles:
+One stylesheet loads the Bebas Neue and Source Sans 3 fonts (served from this repo, no Google Fonts), every CSS variable and type class, and the component styles:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/brand@v1.0.0/dist/storyville.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.2.0/dist/storyville.css">
 ```
 
 In a Vite or Next.js app, put that `<link>` in `index.html` (Vite) or the root layout's `<head>` (Next.js). Then use the variables anywhere:
@@ -25,20 +26,24 @@ In a Vite or Next.js app, put that `<link>` in `index.html` (Vite) or the root l
 
 or the type classes: `display-h1`, `subheading-h2`, `eyebrow`, `body`, `caption`, `table-header`, `table-body`.
 
-Tokens only, without fonts or component styles: `tokens/tokens.css`. Raw values for tools and scripts: `tokens/tokens.json`.
+Tokens only, without fonts or component styles: `tokens/tokens.css`. Fonts only: `fonts/fonts.css`. Raw values for tools and scripts: `tokens/tokens.json`.
+
+Don't add a Google Fonts link to any app: the fonts already come with `storyville.css`. Both are under the SIL Open Font License (`fonts/OFL-*.txt`), which allows self-hosting and bundling.
 
 ### 2. Logos
 
 ```html
-<img src="https://cdn.jsdelivr.net/gh/storyville-rd/brand@v1.0.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
+<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.2.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
 ```
 
-| File (in `logos/`) | Use |
-| --- | --- |
-| `storyville-logo-stacked-{charcoal,offwhite}.png` | Primary logo: mark, wordmark and tagline |
-| `storyville-logo-horizontal-{charcoal,offwhite}.png` | Mark beside the wordmark: headers, letterhead, email signatures |
-| `storyville-wordmark-{charcoal,offwhite}.png` | Wordmark alone |
-| `storyville-mark-{charcoal,offwhite}.png` | The S-road mark alone: favicons, avatars |
+| File (in `logos/`) | Use | Alt text |
+| --- | --- | --- |
+| `storyville-logo-stacked-{charcoal,offwhite}.png` | Primary logo: mark, wordmark and tagline | `Storyville RD. Your Path. Your Story.` |
+| `storyville-logo-horizontal-{charcoal,offwhite}.png` | Mark beside the wordmark: headers, letterhead, email signatures | `Storyville RD` |
+| `storyville-wordmark-{charcoal,offwhite}.png` | Wordmark alone | `Storyville RD` |
+| `storyville-mark-{charcoal,offwhite}.png` | The S-road mark alone: favicons, avatars | `Storyville RD` alone; `alt=""` when the name is beside it |
+
+A logo's alt text is the text it contains; never add "logo" or "image of".
 
 Charcoal goes on light grounds (`color-bg-light`, `color-surface-alt`); off-white goes on `color-bg-dark` and `color-accent`.
 
@@ -62,12 +67,12 @@ Charcoal goes on light grounds (`color-bg-light`, `color-surface-alt`); off-whit
   ```html
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/brand@v1.0.0/components/storyville.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.2.0/components/storyville.global.js"></script>
   ```
 
 ## Changing the brand
 
-1. Edit `tokens/tokens.json` (colors, type, spacing), `css/components.css` (component styles), the files in `logos/`, or `docs/`.
+1. Edit `tokens/tokens.json` (colors, type, spacing), `css/components.css` (component styles), `fonts/fonts.css` and the font files, the files in `logos/`, or `docs/`.
 2. Run `node scripts/build.mjs` to regenerate `tokens/tokens.css` and `dist/storyville.css`. Never edit those two by hand.
 3. Commit, push, and publish a new release tag (`v1.0.1` for fixes, `v1.1.0` for additions, `v2.0.0` if a token is renamed or removed).
 4. Bump the tag in each app's links when you want that app to pick up the change.
@@ -79,6 +84,7 @@ Component changes go in both `react/Storyville.jsx` and `components/storyville.g
 
 ```
 dist/storyville.css            fonts + tokens + component styles (what apps link)
+fonts/                         Bebas Neue + Source Sans 3 (WOFF2), fonts.css, licenses
 tokens/tokens.json             source of truth for every token
 tokens/tokens.css              generated CSS variables and type classes
 css/components.css             component styles (source)
@@ -87,6 +93,7 @@ components/index.d.ts          component props
 react/Storyville.jsx           components for React apps (copy in)
 logos/                         8 logo PNGs + usage notes
 docs/BRAND.md                  brand guidelines
+docs/ACCESSIBILITY.md          alt text, keyboard, shortcuts, motion, captions, forms
 docs/components/               one usage doc per component
 scripts/build.mjs              regenerates the CSS (no dependencies)
 ```

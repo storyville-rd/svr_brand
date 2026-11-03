@@ -1,4 +1,4 @@
-// Regenerates tokens/tokens.css and dist/storyville.css from tokens/tokens.json and css/components.css.
+// Regenerates tokens/tokens.css and dist/storyville.css from tokens/tokens.json, fonts/fonts.css and css/components.css.
 // Run from the repo root: node scripts/build.mjs   (no dependencies)
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
@@ -22,7 +22,8 @@ for (const g of t.type.groups) for (const s of g.styles) {
 const tokensCss = lines.join('\n') + '\n';
 writeFileSync('tokens/tokens.css', tokensCss);
 
-const fonts = "@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap');\n";
+// Self-hosted fonts: fonts/fonts.css points at ./file.woff2; from dist/ the same files are ../fonts/file.woff2.
+const fonts = readFileSync('fonts/fonts.css', 'utf8').replaceAll("url('./", "url('../fonts/");
 mkdirSync('dist', { recursive: true });
 writeFileSync('dist/storyville.css', fonts + '\n' + tokensCss + '\n' + readFileSync('css/components.css', 'utf8'));
 console.log('Built tokens/tokens.css and dist/storyville.css');
