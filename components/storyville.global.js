@@ -7,50 +7,50 @@
   function Button(p) {
     var variant = p.variant || 'primary', size = p.size || 'md';
     var rest = omit(p, ['variant', 'size', 'className', 'children', 'href']);
-    rest.className = cx('sv-btn', 'sv-btn-' + variant, size === 'sm' && 'sv-btn-sm', p.className);
+    rest.className = cx('svr-btn', 'svr-btn-' + variant, size === 'sm' && 'svr-btn-sm', p.className);
     if (p.href) { rest.href = p.href; return h('a', rest, p.children); }
     if (!rest.type) rest.type = 'button';
     return h('button', rest, p.children);
   }
 
   function Eyebrow(p) {
-    return h(p.as || 'span', { className: cx('sv-eyebrow', 'eyebrow', p.className) }, p.children);
+    return h(p.as || 'span', { className: cx('svr-eyebrow', p.className) }, p.children);
   }
 
   function SectionHeader(p) {
     var level = p.level || 2;
-    return h('div', { className: cx('sv-section', p.className) },
-      p.number != null ? h('span', { className: 'sv-section-num subheading-h2', 'aria-hidden': 'true' }, p.number) : null,
-      h('h' + level, { className: 'sv-section-title subheading-h2' }, p.children));
+    return h('div', { className: cx('svr-section', p.className) },
+      p.number != null ? h('span', { className: 'svr-section-num svr-subheading-h2', 'aria-hidden': 'true' }, p.number) : null,
+      h('h' + level, { className: 'svr-section-title svr-subheading-h2' }, p.children));
   }
 
   function Callout(p) {
-    var body = typeof p.children === 'string' ? h('p', { className: 'body' }, p.children) : p.children;
-    return h('aside', { className: cx('sv-callout', 'body', p.className), role: 'note' },
-      p.title ? h('span', { className: 'sv-callout-title table-header' }, p.title) : null, body);
+    var body = typeof p.children === 'string' ? h('p', { className: 'svr-body' }, p.children) : p.children;
+    return h('aside', { className: cx('svr-callout', 'svr-body', p.className), role: 'note' },
+      p.title ? h('span', { className: 'svr-callout-title svr-table-header' }, p.title) : null, body);
   }
 
   function Table(p) {
     var cols = p.columns || [], rows = p.rows || [];
-    return h('table', { className: cx('sv-table', p.header === 'dark' && 'sv-table-dark', p.className) },
-      p.caption ? h('caption', { className: 'caption', style: { textAlign: 'left', paddingBottom: 'var(--space-2)' } }, p.caption) : null,
-      h('thead', null, h('tr', null, cols.map(function (c, i) { return h('th', { key: i, scope: 'col', className: 'table-header' }, c); }))),
+    return h('table', { className: cx('svr-table', p.header === 'dark' && 'svr-table-dark', p.className) },
+      p.caption ? h('caption', { className: 'svr-caption', style: { textAlign: 'left', paddingBottom: 'var(--space-2)' } }, p.caption) : null,
+      h('thead', null, h('tr', null, cols.map(function (c, i) { return h('th', { key: i, scope: 'col', className: 'svr-table-header' }, c); }))),
       h('tbody', null, rows.map(function (r, i) {
-        return h('tr', { key: i }, r.map(function (c, j) { return h('td', { key: j, className: 'table-body' }, c); }));
+        return h('tr', { key: i }, r.map(function (c, j) { return h('td', { key: j, className: 'svr-table-body' }, c); }));
       })));
   }
 
   function Card(p) {
-    return h('article', { className: cx('sv-card', p.className) },
+    return h('article', { className: cx('svr-card', p.className) },
       p.eyebrow ? h(Eyebrow, null, p.eyebrow) : null,
-      h('h3', { className: 'sv-card-title subheading-h2' }, p.title),
-      p.children ? h('div', { className: 'sv-card-body body' }, p.children) : null,
-      p.footer ? h('div', { className: 'sv-card-footer' }, p.footer) : null);
+      h('h3', { className: 'svr-card-title svr-subheading-h2' }, p.title),
+      p.children ? h('div', { className: 'svr-card-body svr-body' }, p.children) : null,
+      p.footer ? h('div', { className: 'svr-card-footer' }, p.footer) : null);
   }
 
   function Surface(p) {
     var tone = p.tone || 'light';
-    return h(p.as || 'section', { className: cx('sv-surface', 'sv-surface-' + tone, 'body', p.className), style: p.style }, p.children);
+    return h(p.as || 'section', { className: cx('svr-surface', 'svr-surface-' + tone, 'svr-body', p.className), style: p.style }, p.children);
   }
 
   var C = window;

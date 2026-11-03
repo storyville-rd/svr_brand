@@ -7,14 +7,14 @@ Accessibility rules (alt text, keyboard, shared shortcuts, motion, captions, for
 
 ## Use it in an app
 
-Every link below is pinned to a release tag (`@v1.2.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
+Every link below is pinned to a release tag (`@v2.0.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
 
 ### 1. Styles (fonts, tokens and component styles)
 
 One stylesheet loads the Bebas Neue and Source Sans 3 fonts (served from this repo, no Google Fonts), every CSS variable and type class, and the component styles:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.2.0/dist/storyville.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v2.0.0/dist/storyville.css">
 ```
 
 In a Vite or Next.js app, put that `<link>` in `index.html` (Vite) or the root layout's `<head>` (Next.js). Then use the variables anywhere:
@@ -24,7 +24,7 @@ In a Vite or Next.js app, put that `<link>` in `index.html` (Vite) or the root l
 .hero h1 { font-family: var(--font-display); color: var(--color-accent); }
 ```
 
-or the type classes: `display-h1`, `subheading-h2`, `eyebrow`, `body`, `caption`, `table-header`, `table-body`.
+or the type classes: `svr-display-h1`, `svr-subheading-h2`, `svr-eyebrow`, `svr-body`, `svr-caption`, `svr-table-header`, `svr-table-body`.
 
 Tokens only, without fonts or component styles: `tokens/tokens.css`. Fonts only: `fonts/fonts.css`. Raw values for tools and scripts: `tokens/tokens.json`.
 
@@ -33,7 +33,7 @@ Don't add a Google Fonts link to any app: the fonts already come with `storyvill
 ### 2. Logos
 
 ```html
-<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.2.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
+<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v2.0.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
 ```
 
 | File (in `logos/`) | Use | Alt text |
@@ -57,7 +57,7 @@ Charcoal goes on light grounds (`color-bg-light`, `color-surface-alt`); off-whit
   import { Button, Surface } from './brand/Storyville';
 
   <Surface tone="red">
-    <h2 className="sv-h2 subheading-h2">Ready to tell your story?</h2>
+    <h2 className="svr-h2 svr-subheading-h2">Ready to tell your story?</h2>
     <Button>Start your project</Button>
   </Surface>
   ```
@@ -67,8 +67,14 @@ Charcoal goes on light grounds (`color-bg-light`, `color-surface-alt`); off-whit
   ```html
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.2.0/components/storyville.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v2.0.0/components/storyville.global.js"></script>
   ```
+
+## Class names
+
+Every class starts with `svr-` so it never collides with an app's own CSS: components (`svr-btn`, `svr-card`, `svr-surface-dark`…) and type styles (`svr-display-h1`, `svr-body`…). Never give an app's own classes the `svr-` prefix. CSS variables (`--color-accent`, `--space-4`…) keep their names.
+
+**Upgrading an app from v1.x to v2.0.0:** bump its links to `@v2.0.0`, copy in the new `react/Storyville.jsx`, and rename any classes the app uses directly: `sv-…` becomes `svr-…`, and the type styles `display-h1`, `subheading-h2`, `eyebrow`, `body`, `caption`, `table-header`, `table-body` become `svr-display-h1` and so on.
 
 ## Changing the brand
 

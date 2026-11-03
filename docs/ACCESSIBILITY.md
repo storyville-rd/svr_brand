@@ -26,7 +26,7 @@ A logo's alt text is the text the logo contains, written out in full. Don't add 
 - A thumbnail that links to a video names the video: `Watch: 2026 brand film for a regional nonprofit`.
 - Text inside an image (a title card, a lower third, a poster) is written into the alt text word for word.
 - Decorative images (textures, background b-roll, divider graphics) get `alt=""`.
-- Don't repeat the caption: if a `caption` sits under the image and already describes it, keep the alt text short or put the detail in only one of the two.
+- Don't repeat the caption: if a `svr-caption` sits under the image and already describes it, keep the alt text short or put the detail in only one of the two.
 
 ## Keyboard
 
@@ -89,7 +89,7 @@ All Storyville apps share one set of shortcuts, so people learn them once.
 ## Structure and touch
 
 - Set `<html lang="en">`.
-- One `<h1>` per page, then headings in order without skipping levels. Choose the level for structure and the type style (`display-h1`, `subheading-h2`) for looks; they don't have to match.
+- One `<h1>` per page, then headings in order without skipping levels. Choose the level for structure and the type style (`svr-display-h1`, `svr-subheading-h2`) for looks; they don't have to match.
 - Link text says where it goes: "View the call sheet", never "click here" or "read more".
 - Touch targets are at least 24×24px, and 44×44px for primary actions on mobile. `Button` meets both at its default size; the `sm` size meets 24px.
 - Pages reflow to a 320px-wide screen and stay usable at 200% zoom without sideways scrolling.
