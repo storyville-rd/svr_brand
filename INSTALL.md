@@ -9,18 +9,21 @@ There are two ways to use the brand in an app:
 
 `scripts/install.mjs` installs a release the same way in every app. It needs Node 18 or later and has no dependencies.
 
-**First time only:** download the script from the release you want and save it in the app as `vendor/svr_brand/scripts/install.mjs`:
+Releases are git tags (`v3.3.0`); the installer and the CDN both read tags. Publishing a GitHub Release for a tag is optional.
 
-```
-https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/scripts/install.mjs
-```
+**First time only**, get the script into the app at `vendor/svr_brand/scripts/install.mjs`. Choose one way:
 
-Then add one npm script to the app's `package.json`:
+- **From the CDN:** download `https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/scripts/install.mjs`. This is easiest. jsDelivr caches tags, so a tag that was moved after release can briefly serve the old file. The first install replaces this copy with the checked one anyway.
+- **From GitHub at an exact commit:** download `https://raw.githubusercontent.com/storyville-rd/svr_brand/<commit-sha>/scripts/install.mjs`, using the commit shown on the tag's GitHub page.
+- **From a local checkout of svr_brand** (no download): `node ../svr_brand/scripts/install.mjs v3.3.0 vendor/svr_brand --public public/svr --docs docs/brand --from ../svr_brand`. This works offline. It checks the files against the checkout's manifest, but can't vouch for the checkout matching the tag, so check out the tag first.
+
+Then add these npm scripts to the app's `package.json`:
 
 ```json
 "scripts": {
-  "brand:install": "node vendor/svr_brand/scripts/install.mjs v3.2.0 vendor/svr_brand --public public/svr",
-  "brand:check": "node vendor/svr_brand/scripts/install.mjs --check vendor/svr_brand --public public/svr"
+  "brand:install": "node vendor/svr_brand/scripts/install.mjs v3.3.0 vendor/svr_brand --public public/svr --docs docs/brand",
+  "brand:check": "node vendor/svr_brand/scripts/install.mjs --check vendor/svr_brand",
+  "brand:latest": "node vendor/svr_brand/scripts/install.mjs --latest vendor/svr_brand"
 }
 ```
 
@@ -33,19 +36,48 @@ What the script does:
 3. Checks each file's size and SHA-256 against the manifest, and refuses a manifest whose version doesn't match the tag.
 4. Replaces `vendor/svr_brand/` with the new copy and writes `vendor/svr_brand/INSTALLED.json` (tag, version, resolved commit SHA, date).
 5. Copies the files the browser has to load as-is (`js/theme.js` and `icons/`) into `public/svr/`.
+6. With `--docs docs/brand`, installs the brand docs into that folder, checked against the manifest too, so people and Claude can read them inside the app. That covers `docs/BRAND.md`, `docs/ACCESSIBILITY.md`, `docs/EMAIL.md`, `docs/components/`, `docs/CLAUDE-snippet.md`, `README.md`, `CHANGELOG.md` and `INSTALL.md`.
+7. Writes a `.gitattributes` with `* -text` into each folder it owns, so git never changes their line endings.
 
 If any check fails, nothing is written and the previous copy stays.
 
-`npm run brand:check` verifies an installed copy, including the `public/svr` files, and exits with an error if anything is missing, extra or edited. It's a good step for CI.
+`npm run brand:check` verifies an installed copy, and exits with an error if anything is missing, extra or edited. It checks the public and docs folders too, using the folders recorded at install time. It's a good step for CI. A file that differs only in line endings is reported as such, with the fix.
+
+`npm run brand:latest` prints the newest release tag and whether the app is behind. It uses one GitHub API request, so "ask Claude to update the brand" becomes:
+
+1. Run `brand:latest`.
+2. Change the tag in `brand:install` and run it.
+3. Read `CHANGELOG.md`.
 
 Options:
 
 - `GITHUB_TOKEN`: set this environment variable to raise the API rate limit. GitHub allows 60 requests an hour without it, and an install uses one.
 - `--commit <sha>`: skips the API lookup.
 - `--from <folder>`: installs from a local checkout.
+- `--docs <folder>`: also installs the docs (see above).
 - `--repo owner/name`: installs from a different repo.
 
 `INSTALLED.json` holds the commit, not `VERSION`, because `VERSION` is a release file the manifest checks and has to stay unchanged.
+
+### Claude and other AI agents in the app
+
+Paste `docs/brand/docs/CLAUDE-snippet.md` into the app's `CLAUDE.md` (or `AGENTS.md`). It tells agents to:
+
+- Use the `--svr-*` tokens and `svr-*` classes.
+- Never edit the installed folders.
+- Where to find the brand and accessibility rules.
+
+### Windows
+
+Git on Windows usually has `core.autocrlf` turned on. That converts text files to CRLF line endings on checkout, so the installed files no longer match the manifest and `brand:check` fails. The installer prevents this by writing a `.gitattributes` with `* -text` into `vendor/svr_brand/`, `public/svr/` and `docs/brand/`. Commit those files with the rest.
+
+If an app already has CRLF copies (for example, installed before 3.3.0), `brand:check` lists them as "differs only in line endings". To fix them:
+
+1. Run `npm run brand:install` again.
+2. Commit the new `.gitattributes` files.
+3. Run `git add --renormalize .`.
+
+Folders the installer has open in another program (a running dev server, an editor or antivirus) can block the swap on Windows. The installer retries for a few seconds. If it still fails, it leaves the previous copy in place, removes its staging folder and says which folder was locked; stop the dev server and run it again.
 
 **Never edit installed files in an app.** Change the brand in the svr_brand repo and install the new release. Edits made in an app are lost at the next install, and `brand:check` flags them.
 

@@ -2,6 +2,21 @@
 
 Every release is a git tag. Breaking releases (a new major number) list what each app has to change.
 
+## 3.3.0
+
+Installer and docs improvements, with no CSS or component changes. Apps on 3.2.0 update by running `brand:install` with the new tag.
+
+- **`--docs <dir>`:** installs the brand docs into the app (manifest-checked), so people and Claude can read them offline. New: `docs/CLAUDE-snippet.md`, a ready-to-paste block for an app's `CLAUDE.md`.
+- **`--latest`:** prints the newest release tag and whether the installed copy is behind.
+- **`--check`:**
+  - Explains files that differ only in line endings (Windows `core.autocrlf`) and how to fix them.
+  - Uses the public and docs folders recorded at install time.
+  - Defaults to `vendor/svr_brand`.
+- **`.gitattributes`:** the installer writes `* -text` into every folder it owns, so git never rewrites line endings there.
+- **Safer swap:** only a missing folder is ignored. Locked folders (`EBUSY`, `EPERM`, `EACCES`) are retried, the old copy is restored if the swap fails, and staging folders are always removed.
+- **`INSTALL.md`:** a Windows section, three ways to bootstrap the script (CDN, an exact commit, a local checkout), and the note that releases are git tags.
+- **`react/Storyville.jsx`:** the header now says to import it from the installed copy.
+
 ## 3.2.0
 
 Everything in this release is an addition or a fix, so apps on 3.1.0 can update without changes.

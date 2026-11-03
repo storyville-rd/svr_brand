@@ -1,6 +1,7 @@
 'use client';
 // Storyville RD React components (ES module source for React apps: Vite, Next.js).
-// Copy this file into your app (e.g. src/brand/Storyville.jsx). Load js/theme.js and dist/storyville.css once per app.
+// Import it from the installed copy (e.g. vendor/svr_brand/react/Storyville.jsx; see INSTALL.md); never edit it in an app.
+// Run js/theme.js in the page <head> and load dist/storyville.css once per app. Types: Storyville.d.ts beside this file.
 // Mirrors components/storyville.global.js; props are documented in components/index.d.ts and docs/components/.
 import React from 'react';
 

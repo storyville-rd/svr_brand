@@ -1,26 +1,26 @@
 {
   "name": "svr_brand",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 5609,
-      "sha256": "1985d1b7ede1db5e9ec7528dfef394152ab65e8a914932b461b384557352606f"
+      "bytes": 6824,
+      "sha256": "2aefdc6c79ba1982b9f50a69e35293330063c4093b9d964ee5c55527f6fbb1bd"
     },
     {
       "path": "INSTALL.md",
-      "bytes": 10876,
-      "sha256": "f19c40c5e598c5889ce76996044f432e4d01565e32fd0269fb418c79ecda4b14"
+      "bytes": 13909,
+      "sha256": "b6f2a0cc9920e062ffec5e7a26157a9abf4eb35c5c9871bc846c489370ab8735"
     },
     {
       "path": "README.md",
-      "bytes": 16087,
-      "sha256": "6d5f36a8239d61dd73bb016bf739dbdb549f5482e439b29d035b4a57bf94c826"
+      "bytes": 16367,
+      "sha256": "d046247d6b1b2c07f92d5bf1cae2aa9c5eba402fd69a4a22782fb96663dbda93"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "33bdaf9e2d6bcbde2e4e613e865e403f8fe21fc621078d34c30b0bdc7f68d903"
+      "sha256": "5eee6c0c5c6901f5e523f0a434bca4106e1ff7136deb451f982b0bb1a7b13716"
     },
     {
       "path": "components/index.d.ts",
@@ -40,12 +40,12 @@
     {
       "path": "dist/storyville.css",
       "bytes": 38688,
-      "sha256": "e79e3a43722b9857ee954599ea0c524a2d3856cd5fcce7a9f18ecd78a4d16973"
+      "sha256": "45c1d80347d036cb2a751763e430960171a5b0719384709a7f346f319b998fdd"
     },
     {
       "path": "dist/tailwind-bridge.css",
       "bytes": 5227,
-      "sha256": "3ca920f57a59a25bb6ea0e115f6909eb400750eb2056afe338846021b14b8df3"
+      "sha256": "3ece1663d5a696b6047d0dc28ddbbcf1fabb32c02d31261ba366777be28b1981"
     },
     {
       "path": "docs/ACCESSIBILITY.md",
@@ -56,6 +56,11 @@
       "path": "docs/BRAND.md",
       "bytes": 17364,
       "sha256": "3967fde4df00677ffdaacd0be6bb088c90a757f53f72733d2110e3683dbcee16"
+    },
+    {
+      "path": "docs/CLAUDE-snippet.md",
+      "bytes": 2786,
+      "sha256": "2663795cd5d559034c5633c5b700a2be26cd5ad5e485771c2deb39bb12fab4a4"
     },
     {
       "path": "docs/EMAIL.md",
@@ -249,8 +254,8 @@
     },
     {
       "path": "react/Storyville.jsx",
-      "bytes": 7280,
-      "sha256": "c7fed9b1d9578d64618ce41b66afce053d32aa885f8d938532c2aa96e4ea0bc1"
+      "bytes": 7406,
+      "sha256": "dc79c899fcf6a1f6deea9946ea0c6fe3241cbe3151fb561a9d3abe73026f3320"
     },
     {
       "path": "scripts/build.mjs",
@@ -259,13 +264,13 @@
     },
     {
       "path": "scripts/install.mjs",
-      "bytes": 8111,
-      "sha256": "3fc9fe19013de5d5957957bcdbf8e336a3fb061c71e60ec50a429329a3bfbe26"
+      "bytes": 14787,
+      "sha256": "f22679e998b5e889e22ec6ad7eaa9e30db7cf22a79ade00908699e295dae34ed"
     },
     {
       "path": "tokens/tokens.css",
       "bytes": 16971,
-      "sha256": "2f23b1920ef4f3f820f2ac9d58e12e3fc07c22ed4bf9fccb8a5072cdf0f80207"
+      "sha256": "5d4d1bf69dcef245b1e2ec5f7771e338438b0877188d3e25ca281d0f82d27f05"
     },
     {
       "path": "tokens/tokens.json",
