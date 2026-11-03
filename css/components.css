@@ -1,0 +1,71 @@
+/* Storyville RD components. Sizes come from the type-style classes in tokens.css
+   (.display-h1, .subheading-h2, .eyebrow, .body, .caption, .table-header, .table-body). */
+
+.sv-root { background: var(--color-bg-light); color: var(--color-text-primary); font-family: var(--font-body); }
+
+/* Button */
+.sv-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  font-family: var(--font-body); font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: var(--space-3) var(--space-6); border-radius: var(--radius-sm); border: 2px solid transparent;
+  cursor: pointer; text-decoration: none; line-height: 1.2; transition: background-color .15s, color .15s, border-color .15s; }
+.sv-btn:focus-visible { outline: 2px solid var(--color-text-primary); outline-offset: 2px; }
+.sv-btn-primary { background: var(--color-accent); color: var(--color-text-reversed); border-color: var(--color-accent); }
+.sv-btn-primary:hover { background: var(--color-bg-dark); border-color: var(--color-bg-dark); }
+.sv-btn-secondary { background: transparent; color: var(--color-accent); border-color: var(--color-accent); }
+.sv-btn-secondary:hover { background: var(--color-accent); color: var(--color-text-reversed); }
+.sv-btn:disabled, .sv-btn[aria-disabled="true"] { background: var(--color-border); border-color: var(--color-border); color: var(--color-text-primary); cursor: not-allowed; }
+.sv-btn-sm { font-size: 13px; padding: var(--space-2) var(--space-4); }
+
+/* Eyebrow */
+.sv-eyebrow { display: block; text-transform: uppercase; color: var(--color-accent); margin: 0 0 var(--space-1); }
+
+/* Headings */
+.sv-h1, .sv-h2 { color: var(--color-accent); margin: 0; }
+
+/* Section header: number + title over a red accent rule */
+.sv-section { display: flex; align-items: baseline; gap: var(--space-3); padding-bottom: var(--space-2);
+  border-bottom: var(--rule-accent) solid var(--color-accent); margin: 0 0 var(--space-6); }
+.sv-section-num { color: var(--color-accent); }
+.sv-section-title { color: var(--color-text-primary); margin: 0; }
+
+/* Callout */
+.sv-callout { background: var(--color-surface-alt); border: var(--rule-hairline) solid var(--color-accent);
+  border-radius: var(--radius-md); padding: var(--space-4) var(--space-6); color: var(--color-text-primary); }
+.sv-callout-title { display: block; text-transform: uppercase; color: var(--color-accent); margin-bottom: var(--space-2); }
+.sv-callout > p { margin: 0; }
+.sv-callout > p + p { margin-top: var(--space-2); }
+
+/* Table */
+.sv-table { width: 100%; border-collapse: collapse; border: var(--rule-hairline) solid var(--color-border); font-family: var(--font-body); }
+.sv-table th { text-align: left; padding: var(--space-2) var(--space-3); background: var(--color-accent); color: var(--color-text-reversed); }
+.sv-table-dark th { background: var(--color-bg-dark); }
+.sv-table td { padding: var(--space-2) var(--space-3); color: var(--color-text-primary); background: var(--color-bg-light);
+  border-top: var(--rule-hairline) solid var(--color-border); }
+.sv-table tbody tr:nth-child(even) td { background: var(--color-surface-alt); }
+
+/* Card */
+.sv-card { background: var(--color-bg-light); border: var(--rule-hairline) solid var(--color-border);
+  border-top: var(--rule-accent) solid var(--color-accent); border-radius: var(--radius-md); padding: var(--space-6);
+  display: flex; flex-direction: column; gap: var(--space-2); }
+.sv-card-title { color: var(--color-text-primary); margin: 0; }
+.sv-card-body { margin: 0; color: var(--color-text-primary); }
+.sv-card-footer { margin-top: var(--space-4); }
+
+/* Surface: full-width bands. Children re-color for reversed grounds. */
+.sv-surface { padding: var(--space-12) var(--space-8); }
+.sv-surface-light { background: var(--color-bg-light); color: var(--color-text-primary); }
+.sv-surface-alt { background: var(--color-surface-alt); color: var(--color-text-primary); }
+.sv-surface-dark { background: var(--color-bg-dark); color: var(--color-text-body-dark); }
+.sv-surface-red { background: var(--color-accent); color: var(--color-text-reversed); }
+.sv-surface-dark .sv-h1, .sv-surface-dark .sv-h2, .sv-surface-dark .sv-eyebrow, .sv-surface-dark .sv-section-title,
+.sv-surface-dark .sv-card-title, .sv-surface-dark .sv-section-num,
+.sv-surface-red .sv-h1, .sv-surface-red .sv-h2, .sv-surface-red .sv-eyebrow, .sv-surface-red .sv-section-title,
+.sv-surface-red .sv-section-num { color: var(--color-text-reversed); }
+.sv-surface-dark .sv-section, .sv-surface-red .sv-section { border-bottom-color: var(--color-text-reversed); }
+.sv-surface-dark .sv-btn:focus-visible, .sv-surface-red .sv-btn:focus-visible { outline-color: var(--color-text-reversed); }
+.sv-surface-dark .sv-btn-secondary { color: var(--color-text-reversed); border-color: var(--color-text-reversed); }
+.sv-surface-dark .sv-btn-secondary:hover { background: var(--color-text-reversed); color: var(--color-bg-dark); }
+.sv-surface-red .sv-btn-primary { background: var(--color-bg-light); border-color: var(--color-bg-light); color: var(--color-accent); }
+.sv-surface-red .sv-btn-primary:hover { background: var(--color-bg-dark); border-color: var(--color-bg-dark); color: var(--color-text-reversed); }
+.sv-surface-red .sv-btn-secondary { color: var(--color-text-reversed); border-color: var(--color-text-reversed); }
+.sv-surface-red .sv-btn-secondary:hover { background: var(--color-text-reversed); color: var(--color-accent); }
