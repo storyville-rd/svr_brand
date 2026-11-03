@@ -1,8 +1,9 @@
-/* @ds-bundle: {"format":4,"namespace":"Storyville","components":[{"name":"Button"},{"name":"Eyebrow"},{"name":"SectionHeader"},{"name":"Callout"},{"name":"Table"},{"name":"Card"},{"name":"Surface"}]} */
+/* @ds-bundle: {"format":4,"namespace":"Storyville","components":[{"name":"Button"},{"name":"Eyebrow"},{"name":"SectionHeader"},{"name":"Callout"},{"name":"Table"},{"name":"Card"},{"name":"Surface"},{"name":"ThemeToggle"}]} */
 (function () {
   var R = window.React, h = R.createElement;
   function cx() { return Array.prototype.filter.call(arguments, Boolean).join(' '); }
   function omit(p, keys) { var o = {}; for (var k in p) if (keys.indexOf(k) < 0) o[k] = p[k]; return o; }
+  var SURFACE = { 'default': '', light: '', alt: 'svr-surface-alt', inverse: 'svr-surface-inverse', dark: 'svr-surface-inverse', red: 'svr-surface-red' };
 
   function Button(p) {
     var variant = p.variant || 'primary', size = p.size || 'md';
@@ -31,9 +32,9 @@
   }
 
   function Table(p) {
-    var cols = p.columns || [], rows = p.rows || [];
-    return h('table', { className: cx('svr-table', p.header === 'dark' && 'svr-table-dark', p.className) },
-      p.caption ? h('caption', { className: 'svr-caption', style: { textAlign: 'left', paddingBottom: 'var(--space-2)' } }, p.caption) : null,
+    var cols = p.columns || [], rows = p.rows || [], inverse = p.header === 'inverse' || p.header === 'dark';
+    return h('table', { className: cx('svr-table', inverse && 'svr-table-inverse', p.className) },
+      p.caption ? h('caption', { className: 'svr-caption', style: { textAlign: 'left', paddingBottom: 'var(--svr-space-2)' } }, p.caption) : null,
       h('thead', null, h('tr', null, cols.map(function (c, i) { return h('th', { key: i, scope: 'col', className: 'svr-table-header' }, c); }))),
       h('tbody', null, rows.map(function (r, i) {
         return h('tr', { key: i }, r.map(function (c, j) { return h('td', { key: j, className: 'svr-table-body' }, c); }));
@@ -49,11 +50,33 @@
   }
 
   function Surface(p) {
-    var tone = p.tone || 'light';
-    return h(p.as || 'section', { className: cx('svr-surface', 'svr-surface-' + tone, 'svr-body', p.className), style: p.style }, p.children);
+    return h(p.as || 'section', { className: cx('svr-surface', SURFACE[p.tone || 'default'], 'svr-body', p.className), style: p.style }, p.children);
+  }
+
+  // Light/dark mode. Uses window.svrTheme from js/theme.js.
+  function currentTheme() {
+    if (window.svrTheme) return window.svrTheme.get();
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+  function ThemeToggle(p) {
+    var st = R.useState(currentTheme), theme = st[0], setTheme = st[1];
+    R.useEffect(function () {
+      function on(e) { setTheme(e.detail.theme); }
+      window.addEventListener('svr-themechange', on);
+      return function () { window.removeEventListener('svr-themechange', on); };
+    }, []);
+    var dark = theme === 'dark';
+    function toggle() {
+      if (window.svrTheme) { window.svrTheme.toggle(); return; }
+      var next = dark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      setTheme(next);
+    }
+    return h('button', { type: 'button', className: cx('svr-btn', 'svr-btn-sm', 'svr-theme-toggle', p.className), 'aria-pressed': dark, onClick: toggle },
+      'Dark mode', h('span', { 'aria-hidden': 'true' }, dark ? ': On' : ': Off'));
   }
 
   var C = window;
   C.Storyville = C.Storyville || {};
-  Object.assign(C.Storyville, { Button: Button, Eyebrow: Eyebrow, SectionHeader: SectionHeader, Callout: Callout, Table: Table, Card: Card, Surface: Surface });
+  Object.assign(C.Storyville, { Button: Button, Eyebrow: Eyebrow, SectionHeader: SectionHeader, Callout: Callout, Table: Table, Card: Card, Surface: Surface, ThemeToggle: ThemeToggle });
 })();

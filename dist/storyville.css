@@ -50,111 +50,170 @@
 }
 
 /* Storyville RD — generated from tokens/tokens.json by scripts/build.mjs. Do not edit by hand. */
-:root {
-  --color-accent: #A72F2F;
-  --color-bg-light: #FAF8F5;
-  --color-bg-dark: #211D1B;
-  --color-text-primary: #211D1B;
-  --color-text-reversed: #FAF8F5;
-  --color-text-body-dark: #D4CECC;
-  --color-surface-alt: #F0EDE8;
-  --color-border: #C8C4C0;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --radius-none: 0px;
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --rule-accent: 3px;
-  --rule-hairline: 1px;
-  --font-display: "Bebas Neue", Arial, sans-serif;
-  --font-body: "Source Sans 3", Calibri, sans-serif;
+@layer svr {
+  :root, [data-theme="light"] {
+    color-scheme: light;
+    --svr-palette-red: #A72F2F;
+    --svr-palette-red-light: #E07B72;
+    --svr-palette-offwhite: #FAF8F5;
+    --svr-palette-charcoal: #211D1B;
+    --svr-palette-muted: #D4CECC;
+    --svr-palette-gray: #F0EDE8;
+    --svr-palette-border: #C8C4C0;
+    --svr-palette-charcoal-alt: #2E2926;
+    --svr-palette-border-dark: #6B625D;
+    --svr-color-bg: var(--svr-palette-offwhite);
+    --svr-color-text: var(--svr-palette-charcoal);
+    --svr-color-heading: var(--svr-palette-charcoal);
+    --svr-color-surface-alt: var(--svr-palette-gray);
+    --svr-color-border: var(--svr-palette-border);
+    --svr-color-accent: var(--svr-palette-red);
+    --svr-color-accent-fill: var(--svr-palette-red);
+    --svr-color-on-accent: var(--svr-palette-offwhite);
+    --svr-space-1: 4px;
+    --svr-space-2: 8px;
+    --svr-space-3: 12px;
+    --svr-space-4: 16px;
+    --svr-space-6: 24px;
+    --svr-space-8: 32px;
+    --svr-space-12: 48px;
+    --svr-radius-none: 0px;
+    --svr-radius-sm: 2px;
+    --svr-radius-md: 4px;
+    --svr-rule-accent: 3px;
+    --svr-rule-hairline: 1px;
+    --svr-font-display: "Bebas Neue", Arial, sans-serif;
+    --svr-font-body: "Source Sans 3", Calibri, sans-serif;
+  }
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --svr-color-bg: var(--svr-palette-charcoal);
+    --svr-color-text: var(--svr-palette-muted);
+    --svr-color-heading: var(--svr-palette-offwhite);
+    --svr-color-surface-alt: var(--svr-palette-charcoal-alt);
+    --svr-color-border: var(--svr-palette-border-dark);
+    --svr-color-accent: var(--svr-palette-red-light);
+    --svr-color-accent-fill: var(--svr-palette-red);
+    --svr-color-on-accent: var(--svr-palette-offwhite);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --svr-color-bg: var(--svr-palette-charcoal);
+      --svr-color-text: var(--svr-palette-muted);
+      --svr-color-heading: var(--svr-palette-offwhite);
+      --svr-color-surface-alt: var(--svr-palette-charcoal-alt);
+      --svr-color-border: var(--svr-palette-border-dark);
+      --svr-color-accent: var(--svr-palette-red-light);
+      --svr-color-accent-fill: var(--svr-palette-red);
+      --svr-color-on-accent: var(--svr-palette-offwhite);
+    }
+  }
+  .svr-display-h1 { font-family: var(--svr-font-display); font-size: 64px; line-height: 1; font-weight: 400; letter-spacing: 0.01em; }
+  .svr-subheading-h2 { font-family: var(--svr-font-display); font-size: 40px; line-height: 1.05; font-weight: 400; letter-spacing: 0.01em; }
+  .svr-eyebrow { font-family: var(--svr-font-body); font-size: 13px; line-height: 1.3; font-weight: 700; letter-spacing: 0.12em; }
+  .svr-body { font-family: var(--svr-font-body); font-size: 15px; line-height: 1.5; font-weight: 400; }
+  .svr-caption { font-family: var(--svr-font-body); font-size: 12px; line-height: 1.4; font-weight: 400; }
+  .svr-table-header { font-family: var(--svr-font-body); font-size: 13px; line-height: 1.3; font-weight: 700; }
+  .svr-table-body { font-family: var(--svr-font-body); font-size: 13px; line-height: 1.4; font-weight: 400; }
 }
-.svr-display-h1 { font-family: var(--font-display); font-size: 64px; line-height: 1; font-weight: 400; letter-spacing: 0.01em; }
-.svr-subheading-h2 { font-family: var(--font-display); font-size: 40px; line-height: 1.05; font-weight: 400; letter-spacing: 0.01em; }
-.svr-eyebrow { font-family: var(--font-body); font-size: 13px; line-height: 1.3; font-weight: 700; letter-spacing: 0.12em; }
-.svr-body { font-family: var(--font-body); font-size: 15px; line-height: 1.5; font-weight: 400; }
-.svr-caption { font-family: var(--font-body); font-size: 12px; line-height: 1.4; font-weight: 400; }
-.svr-table-header { font-family: var(--font-body); font-size: 13px; line-height: 1.3; font-weight: 700; }
-.svr-table-body { font-family: var(--font-body); font-size: 13px; line-height: 1.4; font-weight: 400; }
 
-/* Storyville RD components. Sizes come from the type-style classes in tokens.css
-   (.svr-display-h1, .svr-subheading-h2, .svr-eyebrow, .svr-body, .svr-caption, .svr-table-header, .svr-table-body). */
+/* Storyville RD components, in the `svr` cascade layer.
+   Colors come from the role tokens (--svr-color-*), which switch between light and dark,
+   so no rule here names a theme except .svr-surface-inverse. Type sizes come from the
+   type-style classes (.svr-display-h1, .svr-subheading-h2, .svr-eyebrow, .svr-body,
+   .svr-caption, .svr-table-header, .svr-table-body). */
+@layer svr {
 
-.svr-root { background: var(--color-bg-light); color: var(--color-text-primary); font-family: var(--font-body); }
+.svr-root { background: var(--svr-color-bg); color: var(--svr-color-text); font-family: var(--svr-font-body); }
 
 /* Button */
-.svr-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
-  font-family: var(--font-body); font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-  padding: var(--space-3) var(--space-6); border-radius: var(--radius-sm); border: 2px solid transparent;
+.svr-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--svr-space-2);
+  font-family: var(--svr-font-body); font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: var(--svr-space-3) var(--svr-space-6); border-radius: var(--svr-radius-sm); border: 2px solid transparent;
   cursor: pointer; text-decoration: none; line-height: 1.2; transition: background-color .15s, color .15s, border-color .15s; }
-.svr-btn:focus-visible { outline: 2px solid var(--color-text-primary); outline-offset: 2px; }
-.svr-btn-primary { background: var(--color-accent); color: var(--color-text-reversed); border-color: var(--color-accent); }
-.svr-btn-primary:hover { background: var(--color-bg-dark); border-color: var(--color-bg-dark); }
-.svr-btn-secondary { background: transparent; color: var(--color-accent); border-color: var(--color-accent); }
-.svr-btn-secondary:hover { background: var(--color-accent); color: var(--color-text-reversed); }
-.svr-btn:disabled, .svr-btn[aria-disabled="true"] { background: var(--color-border); border-color: var(--color-border); color: var(--color-text-primary); cursor: not-allowed; }
-.svr-btn-sm { font-size: 13px; padding: var(--space-2) var(--space-4); }
+.svr-btn:focus-visible { outline: 2px solid var(--svr-color-heading); outline-offset: 2px; }
+.svr-btn-primary { background: var(--svr-color-accent-fill); color: var(--svr-color-on-accent); border-color: var(--svr-color-accent-fill); }
+.svr-btn-primary:hover { background: var(--svr-color-heading); border-color: var(--svr-color-heading); color: var(--svr-color-bg); }
+.svr-btn-secondary { background: transparent; color: var(--svr-color-accent); border-color: var(--svr-color-accent); }
+.svr-btn-secondary:hover { background: var(--svr-color-accent-fill); border-color: var(--svr-color-accent-fill); color: var(--svr-color-on-accent); }
+.svr-btn:disabled, .svr-btn[aria-disabled="true"] { background: var(--svr-color-border); border-color: var(--svr-color-border); color: var(--svr-color-heading); cursor: not-allowed; }
+.svr-btn-sm { font-size: 13px; padding: var(--svr-space-2) var(--svr-space-4); }
+
+/* Theme toggle: a small outline button; aria-pressed="true" means dark mode is on */
+.svr-theme-toggle { gap: 0; background: transparent; color: var(--svr-color-heading); border-color: var(--svr-color-heading); }
+.svr-theme-toggle:hover { background: var(--svr-color-heading); color: var(--svr-color-bg); }
 
 /* Eyebrow */
-.svr-eyebrow { display: block; text-transform: uppercase; color: var(--color-accent); margin: 0 0 var(--space-1); }
+.svr-eyebrow { display: block; text-transform: uppercase; color: var(--svr-color-accent); margin: 0 0 var(--svr-space-1); }
 
 /* Headings */
-.svr-h1, .svr-h2 { color: var(--color-accent); margin: 0; }
+.svr-h1, .svr-h2 { color: var(--svr-color-accent); margin: 0; }
 
 /* Section header: number + title over a red accent rule */
-.svr-section { display: flex; align-items: baseline; gap: var(--space-3); padding-bottom: var(--space-2);
-  border-bottom: var(--rule-accent) solid var(--color-accent); margin: 0 0 var(--space-6); }
-.svr-section-num { color: var(--color-accent); }
-.svr-section-title { color: var(--color-text-primary); margin: 0; }
+.svr-section { display: flex; align-items: baseline; gap: var(--svr-space-3); padding-bottom: var(--svr-space-2);
+  border-bottom: var(--svr-rule-accent) solid var(--svr-color-accent); margin: 0 0 var(--svr-space-6); }
+.svr-section-num { color: var(--svr-color-accent); }
+.svr-section-title { color: var(--svr-color-heading); margin: 0; }
 
 /* Callout */
-.svr-callout { background: var(--color-surface-alt); border: var(--rule-hairline) solid var(--color-accent);
-  border-radius: var(--radius-md); padding: var(--space-4) var(--space-6); color: var(--color-text-primary); }
-.svr-callout-title { display: block; text-transform: uppercase; color: var(--color-accent); margin-bottom: var(--space-2); }
+.svr-callout { background: var(--svr-color-surface-alt); border: var(--svr-rule-hairline) solid var(--svr-color-accent);
+  border-radius: var(--svr-radius-md); padding: var(--svr-space-4) var(--svr-space-6); color: var(--svr-color-text); }
+.svr-callout-title { display: block; text-transform: uppercase; color: var(--svr-color-accent); margin-bottom: var(--svr-space-2); }
 .svr-callout > p { margin: 0; }
-.svr-callout > p + p { margin-top: var(--space-2); }
+.svr-callout > p + p { margin-top: var(--svr-space-2); }
 
 /* Table */
-.svr-table { width: 100%; border-collapse: collapse; border: var(--rule-hairline) solid var(--color-border); font-family: var(--font-body); }
-.svr-table th { text-align: left; padding: var(--space-2) var(--space-3); background: var(--color-accent); color: var(--color-text-reversed); }
-.svr-table-dark th { background: var(--color-bg-dark); }
-.svr-table td { padding: var(--space-2) var(--space-3); color: var(--color-text-primary); background: var(--color-bg-light);
-  border-top: var(--rule-hairline) solid var(--color-border); }
-.svr-table tbody tr:nth-child(even) td { background: var(--color-surface-alt); }
+.svr-table { width: 100%; border-collapse: collapse; border: var(--svr-rule-hairline) solid var(--svr-color-border); font-family: var(--svr-font-body); }
+.svr-table th { text-align: left; padding: var(--svr-space-2) var(--svr-space-3); background: var(--svr-color-accent-fill); color: var(--svr-color-on-accent); }
+.svr-table-inverse th { background: var(--svr-color-heading); color: var(--svr-color-bg); }
+.svr-table td { padding: var(--svr-space-2) var(--svr-space-3); color: var(--svr-color-text); background: var(--svr-color-bg);
+  border-top: var(--svr-rule-hairline) solid var(--svr-color-border); }
+.svr-table tbody tr:nth-child(even) td { background: var(--svr-color-surface-alt); }
 
 /* Card */
-.svr-card { background: var(--color-bg-light); border: var(--rule-hairline) solid var(--color-border);
-  border-top: var(--rule-accent) solid var(--color-accent); border-radius: var(--radius-md); padding: var(--space-6);
-  display: flex; flex-direction: column; gap: var(--space-2); }
-.svr-card-title { color: var(--color-text-primary); margin: 0; }
-.svr-card-body { margin: 0; color: var(--color-text-primary); }
-.svr-card-footer { margin-top: var(--space-4); }
+.svr-card { background: var(--svr-color-bg); border: var(--svr-rule-hairline) solid var(--svr-color-border);
+  border-top: var(--svr-rule-accent) solid var(--svr-color-accent); border-radius: var(--svr-radius-md); padding: var(--svr-space-6);
+  display: flex; flex-direction: column; gap: var(--svr-space-2); }
+.svr-card-title { color: var(--svr-color-heading); margin: 0; }
+.svr-card-body { margin: 0; color: var(--svr-color-text); }
+.svr-card-footer { margin-top: var(--svr-space-4); }
 
-/* Surface: full-width bands. Children re-color for reversed grounds. */
-.svr-surface { padding: var(--space-12) var(--space-8); }
-.svr-surface-light { background: var(--color-bg-light); color: var(--color-text-primary); }
-.svr-surface-alt { background: var(--color-surface-alt); color: var(--color-text-primary); }
-.svr-surface-dark { background: var(--color-bg-dark); color: var(--color-text-body-dark); }
-.svr-surface-red { background: var(--color-accent); color: var(--color-text-reversed); }
-.svr-surface-dark .svr-h1, .svr-surface-dark .svr-h2, .svr-surface-dark .svr-eyebrow, .svr-surface-dark .svr-section-title,
-.svr-surface-dark .svr-card-title, .svr-surface-dark .svr-section-num,
-.svr-surface-red .svr-h1, .svr-surface-red .svr-h2, .svr-surface-red .svr-eyebrow, .svr-surface-red .svr-section-title,
-.svr-surface-red .svr-section-num { color: var(--color-text-reversed); }
-.svr-surface-dark .svr-section, .svr-surface-red .svr-section { border-bottom-color: var(--color-text-reversed); }
-.svr-surface-dark .svr-btn:focus-visible, .svr-surface-red .svr-btn:focus-visible { outline-color: var(--color-text-reversed); }
-.svr-surface-dark .svr-btn-secondary { color: var(--color-text-reversed); border-color: var(--color-text-reversed); }
-.svr-surface-dark .svr-btn-secondary:hover { background: var(--color-text-reversed); color: var(--color-bg-dark); }
-.svr-surface-red .svr-btn-primary { background: var(--color-bg-light); border-color: var(--color-bg-light); color: var(--color-accent); }
-.svr-surface-red .svr-btn-primary:hover { background: var(--color-bg-dark); border-color: var(--color-bg-dark); color: var(--color-text-reversed); }
-.svr-surface-red .svr-btn-secondary { color: var(--color-text-reversed); border-color: var(--color-text-reversed); }
-.svr-surface-red .svr-btn-secondary:hover { background: var(--color-text-reversed); color: var(--color-accent); }
+/* Surface: full-width bands. A band re-points the role tokens, so everything inside re-colors itself. */
+.svr-surface { padding: var(--svr-space-12) var(--svr-space-8); background: var(--svr-color-bg); color: var(--svr-color-text); }
+.svr-surface-alt { background: var(--svr-color-surface-alt); }
+
+/* inverse: the opposite theme's colors (a charcoal band in light mode, an off-white band in dark mode) */
+.svr-surface-inverse {
+  --svr-color-bg: var(--svr-palette-charcoal); --svr-color-text: var(--svr-palette-muted); --svr-color-heading: var(--svr-palette-offwhite);
+  --svr-color-surface-alt: var(--svr-palette-charcoal-alt); --svr-color-border: var(--svr-palette-border-dark); --svr-color-accent: var(--svr-palette-red-light);
+  color-scheme: dark;
+}
+[data-theme="dark"] .svr-surface-inverse {
+  --svr-color-bg: var(--svr-palette-offwhite); --svr-color-text: var(--svr-palette-charcoal); --svr-color-heading: var(--svr-palette-charcoal);
+  --svr-color-surface-alt: var(--svr-palette-gray); --svr-color-border: var(--svr-palette-border); --svr-color-accent: var(--svr-palette-red);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .svr-surface-inverse {
+    --svr-color-bg: var(--svr-palette-offwhite); --svr-color-text: var(--svr-palette-charcoal); --svr-color-heading: var(--svr-palette-charcoal);
+    --svr-color-surface-alt: var(--svr-palette-gray); --svr-color-border: var(--svr-palette-border); --svr-color-accent: var(--svr-palette-red);
+    color-scheme: light;
+  }
+}
+
+/* red: Storyville Red in both themes; all text off-white, and the primary button inverts */
+.svr-surface-red {
+  background: var(--svr-palette-red);
+  --svr-color-text: var(--svr-palette-offwhite); --svr-color-heading: var(--svr-palette-offwhite); --svr-color-accent: var(--svr-palette-offwhite);
+  --svr-color-accent-fill: var(--svr-palette-offwhite); --svr-color-on-accent: var(--svr-palette-red);
+  color: var(--svr-color-text);
+}
+.svr-surface-red .svr-btn-primary:hover { background: var(--svr-palette-charcoal); border-color: var(--svr-palette-charcoal); color: var(--svr-palette-offwhite); }
 
 /* Respect the reduce-motion setting */
 @media (prefers-reduced-motion: reduce) {
   .svr-btn { transition: none; }
+}
+
 }

@@ -1,6 +1,6 @@
 # Storyville RD Accessibility
 
-Every Storyville RD app, page and document meets WCAG 2.2 AA. Color contrast and focus rings are covered in [BRAND.md](BRAND.md) under Color and Layout; this section covers everything else.
+Every Storyville RD app, page and document meets WCAG 2.2 AA, in light and dark mode. Color contrast and focus rings are covered in [BRAND.md](BRAND.md) under Color and Layout; this section covers everything else.
 
 ## Alt text
 
@@ -12,7 +12,7 @@ A logo's alt text is the text the logo contains, written out in full. Don't add 
 
 | Logo file | Alt text |
 | --- | --- |
-| [`storyville-logo-stacked-*`](../logos/) | `Storyville RD. Your Path. Your Story.` |
+| `storyville-logo-stacked-*` | `Storyville RD. Your Path. Your Story.` |
 | `storyville-logo-horizontal-*` | `Storyville RD` |
 | `storyville-wordmark-*` | `Storyville RD` |
 | `storyville-mark-*` | `Storyville RD` when the mark stands alone as the brand (an app icon, a home link, an avatar); `alt=""` when the company name is already written right beside it |
@@ -77,11 +77,18 @@ All Storyville apps share one set of shortcuts, so people learn them once.
 - Every video carries closed captions (WebVTT, `.vtt`), not only burned-in subtitles, so people can turn them on, off and resize them. Longer pieces (interviews, documentaries) also get a transcript linked beside the player.
 - Captions follow speech, name speakers when it isn't obvious, and include meaningful sounds: `[upbeat music]`, `[crowd cheering]`.
 
+## Light and dark mode
+
+- Every app offers both themes and follows the device setting until someone chooses one (see [Light and dark mode](BRAND.md#light-and-dark-mode) in the brand guidelines).
+- The toggle is a real `<button>` with a visible label and `aria-pressed`, reachable by keyboard. Use `ThemeToggle`.
+- Every text and background pairing meets contrast in both themes. Check each screen in both before shipping.
+- Images and video stills don't change with the theme. Logos do: use the off-white files in dark mode.
+
 ## Forms
 
 - Every field has a visible `<label>`. A placeholder is never the label.
 - Mark required fields with the word "(required)" in the label, not an asterisk or color alone.
-- Error messages are text, placed directly under the field and linked to it with `aria-describedby`: "Enter a shoot date", not just a red border. Error text is `color-accent` on `color-bg-light` (6.4:1) and starts with an icon or the word "Error:" so it doesn't rely on red.
+- Error messages are text, placed directly under the field and linked to it with `aria-describedby`: "Enter a shoot date", not just a red border. Error text is `svr-color-accent` on `svr-color-bg` (6.4:1 light, 5.8:1 dark) and starts with an icon or the word "Error:" so it doesn't rely on red.
 - On submit, move focus to the first field with an error, or to an error summary at the top that links to each field.
 - Group related choices (radio buttons, checkboxes) in a `<fieldset>` with a `<legend>`.
 - Use the right input type (`email`, `tel`, `date`) and `autocomplete` values so phones show the right keyboard and browsers can autofill.

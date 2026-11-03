@@ -1,10 +1,11 @@
 # Surface
 
-A full-width band that sets the ground for what's inside it: `light` (Off-White), `alt` (Surface Gray), `dark` (Soft Charcoal) or `red` (Storyville Red).
+A full-width band that sets the ground for what's inside it. It re-points the role tokens, so every component inside re-colors itself in both themes.
 
 **Provide:** `tone`, `children`, optional `as` element.
 
-- On `dark`: body copy turns `color-text-body-dark` (#D4CECC); headings, eyebrows and labels turn `color-text-reversed` (#FAF8F5).
-- On `red`: all text is `color-text-reversed`; the primary Button inverts to Off-White.
-- Use `red` for one closing call-to-action band at most per page: red accents, it doesn't dominate.
-- This system is light-themed; `dark` and `red` are sections inside a light page, not a dark mode.
+- `default`: the page background (`svr-color-bg`).
+- `alt`: `svr-color-surface-alt`.
+- `inverse`: the opposite theme. In light mode it's a Soft Charcoal band with Muted Off-White body copy, Off-White headings and the #E07B72 red tint; in dark mode it's an Off-White band with charcoal text and the true red.
+- `red`: Storyville Red in both themes. All text is Off-White, and the primary Button inverts to an Off-White fill. Use it for one closing call-to-action band at most per page, and don't put Cards or Tables inside it.
+- The old tone names `light` and `dark` still work and mean `default` and `inverse`.

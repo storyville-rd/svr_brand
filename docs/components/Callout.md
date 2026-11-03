@@ -1,6 +1,6 @@
 # Callout
 
-A highlighted note box: Surface Gray fill with a thin Storyville Red border, for rules, key takeaways and important notes inside a document.
+A highlighted note box: a `svr-color-surface-alt` fill with a thin `svr-color-accent` border, for rules, key takeaways and important notes inside a document.
 
 **Provide:** `children` (a string or paragraphs), optional `title` (rendered as a red uppercase label).
 
