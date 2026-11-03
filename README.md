@@ -13,7 +13,7 @@ Every link below is pinned to a release tag (`@v1.0.0`). Pin your app to a tag, 
 One stylesheet loads Bebas Neue and Source Sans 3 from Google Fonts, every CSS variable and type class, and the component styles:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/brand@v1.0.0/dist/storyville.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.0.0/dist/storyville.css">
 ```
 
 In a Vite or Next.js app, put that `<link>` in `index.html` (Vite) or the root layout's `<head>` (Next.js). Then use the variables anywhere:
@@ -30,7 +30,7 @@ Tokens only, without fonts or component styles: `tokens/tokens.css`. Raw values 
 ### 2. Logos
 
 ```html
-<img src="https://cdn.jsdelivr.net/gh/storyville-rd/brand@v1.0.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
+<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.0.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
 ```
 
 | File (in `logos/`) | Use |
@@ -62,7 +62,7 @@ Charcoal goes on light grounds (`color-bg-light`, `color-surface-alt`); off-whit
   ```html
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/brand@v1.0.0/components/storyville.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v1.0.0/components/storyville.global.js"></script>
   ```
 
 ## Changing the brand
