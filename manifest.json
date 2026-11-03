@@ -1,26 +1,26 @@
 {
   "name": "svr_brand",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 3919,
-      "sha256": "d62f9ff9c6c850660baf91c1d64710dce374dbdd47e6311de9a7408a9a38bfc1"
+      "bytes": 5609,
+      "sha256": "1985d1b7ede1db5e9ec7528dfef394152ab65e8a914932b461b384557352606f"
     },
     {
       "path": "INSTALL.md",
-      "bytes": 3966,
-      "sha256": "c0c6b45017ccb721f4abb6e35452874171d06488ef00fd819e9486e0c07bdcea"
+      "bytes": 10876,
+      "sha256": "f19c40c5e598c5889ce76996044f432e4d01565e32fd0269fb418c79ecda4b14"
     },
     {
       "path": "README.md",
-      "bytes": 15234,
-      "sha256": "2d9fd569bad7993e392fc0e6fbee38ff41ba2eebc32ba4f16767421f1fe6f55f"
+      "bytes": 16087,
+      "sha256": "6d5f36a8239d61dd73bb016bf739dbdb549f5482e439b29d035b4a57bf94c826"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "b2f44d3b6e29f8b1b73ea4735f006affc4d198e1fd9c7d50e736159b1ef636c6"
+      "sha256": "33bdaf9e2d6bcbde2e4e613e865e403f8fe21fc621078d34c30b0bdc7f68d903"
     },
     {
       "path": "components/index.d.ts",
@@ -29,33 +29,33 @@
     },
     {
       "path": "components/storyville.global.js",
-      "bytes": 7335,
-      "sha256": "f60e5a13f8fff0b8cec51641becfff751b83d1d5dcffb232c2899620e99424b4"
+      "bytes": 7431,
+      "sha256": "57647643339141d84fb2992736376d44074a0bc26a0571b243972a7f61893e3c"
     },
     {
       "path": "css/components.css",
-      "bytes": 17979,
-      "sha256": "c6186a96c33e7a26133596e88759cbcdd1575c4ffd98b56d0d2540bbd7248f7d"
+      "bytes": 19287,
+      "sha256": "463c93fb8d78994ed410f7565209be39961ef3878aa302eca46922ffe92c73cb"
     },
     {
       "path": "dist/storyville.css",
-      "bytes": 35645,
-      "sha256": "93c730bad79e2e2528fea82d6a802ae03f1f0a2ebc8d7d6fecfa9472050dc05d"
+      "bytes": 38688,
+      "sha256": "e79e3a43722b9857ee954599ea0c524a2d3856cd5fcce7a9f18ecd78a4d16973"
     },
     {
       "path": "dist/tailwind-bridge.css",
       "bytes": 5227,
-      "sha256": "175f7bccccd5927af51cfd3ca4876ec1e26c1cc901e998565fb9645774cc43de"
+      "sha256": "3ca920f57a59a25bb6ea0e115f6909eb400750eb2056afe338846021b14b8df3"
     },
     {
       "path": "docs/ACCESSIBILITY.md",
-      "bytes": 8445,
-      "sha256": "3cc6d09b0d2a8569d783885c050f2b5ee875212f5a6504ee82c82813e798fa83"
+      "bytes": 8651,
+      "sha256": "6a85c029f29157c26866ab06cc69ad1f309770525660dfd27ce4b55273752136"
     },
     {
       "path": "docs/BRAND.md",
-      "bytes": 15657,
-      "sha256": "970114e1009ff88b800a81e59d8528b9c55c3a92cc2e7ded9e4ebb6d82679c34"
+      "bytes": 17364,
+      "sha256": "3967fde4df00677ffdaacd0be6bb088c90a757f53f72733d2110e3683dbcee16"
     },
     {
       "path": "docs/EMAIL.md",
@@ -188,9 +188,14 @@
       "sha256": "b9c4f43f0fc8372c7b3d2f31c42cbd7c75ebc1810fe8277f0b4ed7fcdb8d63e7"
     },
     {
+      "path": "js/theme.d.ts",
+      "bytes": 877,
+      "sha256": "6e444da120d55d24d84d562542697036b51e03bcc0435acc562d96216bafe71a"
+    },
+    {
       "path": "js/theme.js",
-      "bytes": 1724,
-      "sha256": "ff9db2d5c754bed351be43519dea3611ff6d185d9eb35abd86154399c0132025"
+      "bytes": 2136,
+      "sha256": "b2065ab6cc8fb45971df86f6bc4e5567814c49ed2f45439cdf8d83977fc0a052"
     },
     {
       "path": "logos/README.md",
@@ -238,19 +243,29 @@
       "sha256": "359ab73cece4406d5d50668f8592cd82108515e3be282dd9951346cbf5c1e844"
     },
     {
+      "path": "react/Storyville.d.ts",
+      "bytes": 5152,
+      "sha256": "3b94e93f300db020965119daddf0bb871b7e1ee16019a4daafafaea1d25e7142"
+    },
+    {
       "path": "react/Storyville.jsx",
-      "bytes": 7055,
-      "sha256": "e70bfdbc8cb482f1a48329ec88d4f079f69389f09fbe378a044e8efc9bee0c10"
+      "bytes": 7280,
+      "sha256": "c7fed9b1d9578d64618ce41b66afce053d32aa885f8d938532c2aa96e4ea0bc1"
     },
     {
       "path": "scripts/build.mjs",
-      "bytes": 7570,
-      "sha256": "3e67447e433f87ec8b3a1d87813292067bf2c112fb7d3d3a099d7c6edc540220"
+      "bytes": 8020,
+      "sha256": "b0de0504201af50c9f442f02eada205e30b02a51941a0c342357c8987beb24bc"
+    },
+    {
+      "path": "scripts/install.mjs",
+      "bytes": 8111,
+      "sha256": "3fc9fe19013de5d5957957bcdbf8e336a3fb061c71e60ec50a429329a3bfbe26"
     },
     {
       "path": "tokens/tokens.css",
-      "bytes": 15236,
-      "sha256": "f85a3c9a6f9425d57a09eb2c676c005bbac511b865a6f99a008613251eff4e7d"
+      "bytes": 16971,
+      "sha256": "2f23b1920ef4f3f820f2ac9d58e12e3fc07c22ed4bf9fccb8a5072cdf0f80207"
     },
     {
       "path": "tokens/tokens.json",

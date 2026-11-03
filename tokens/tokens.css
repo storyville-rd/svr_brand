@@ -1,4 +1,4 @@
-/* Storyville RD 3.1.0 — generated from tokens/tokens.json by scripts/build.mjs. Do not edit by hand. */
+/* Storyville RD 3.2.0 — generated from tokens/tokens.json by scripts/build.mjs. Do not edit by hand. */
 @layer svr {
   :root, [data-theme="light"] {
     color-scheme: light;
@@ -175,7 +175,7 @@
     --svr-color-chart-4: #62BB78;
     --svr-color-chart-5: #A59C98;
   }
-  [data-theme="dark"] .svr-surface-inverse {
+  [data-theme="dark"] .svr-surface-inverse:not([data-theme="dark"] [data-theme="light"] *) {
     color-scheme: light;
     --svr-color-bg: var(--svr-palette-offwhite);
     --svr-color-text: var(--svr-palette-charcoal);
@@ -213,7 +213,7 @@
     --svr-color-chart-5: #69615D;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .svr-surface-inverse {
+    :root:not([data-theme="light"]) .svr-surface-inverse:not([data-theme="light"] *) {
       color-scheme: light;
       --svr-color-bg: var(--svr-palette-offwhite);
       --svr-color-text: var(--svr-palette-charcoal);
@@ -250,6 +250,44 @@
       --svr-color-chart-4: #1C8742;
       --svr-color-chart-5: #69615D;
     }
+  }
+  /* Nav and sidebar surface: always the dark theme (charcoal), in both page themes. */
+  .svr-nav {
+    color-scheme: dark;
+    --svr-color-bg: var(--svr-palette-charcoal);
+    --svr-color-text: var(--svr-palette-muted);
+    --svr-color-heading: var(--svr-palette-offwhite);
+    --svr-color-surface-alt: var(--svr-palette-charcoal-alt);
+    --svr-color-border: var(--svr-palette-border-dark);
+    --svr-color-accent: var(--svr-palette-red-light);
+    --svr-color-accent-fill: var(--svr-palette-red);
+    --svr-color-on-accent: var(--svr-palette-offwhite);
+    --svr-color-text-muted: #A39A95;
+    --svr-color-border-strong: #8C837E;
+    --svr-color-focus: var(--svr-color-heading);
+    --svr-color-placeholder: var(--svr-color-text-muted);
+    --svr-color-disabled-bg: var(--svr-color-border);
+    --svr-color-disabled-text: var(--svr-color-heading);
+    --svr-color-link: var(--svr-color-accent);
+    --svr-color-link-hover: var(--svr-color-heading);
+    --svr-color-overlay: rgba(12, 10, 9, 0.72);
+    --svr-color-danger: #F08BA0;
+    --svr-color-danger-subtle: #3D1D24;
+    --svr-color-on-danger: #211D1B;
+    --svr-color-success: #76C2B0;
+    --svr-color-success-subtle: #1A322D;
+    --svr-color-on-success: #211D1B;
+    --svr-color-warning: #E3A94F;
+    --svr-color-warning-subtle: #3A2B14;
+    --svr-color-on-warning: #211D1B;
+    --svr-color-info: #8DB8E0;
+    --svr-color-info-subtle: #1B2B3A;
+    --svr-color-on-info: #211D1B;
+    --svr-color-chart-1: #E07B72;
+    --svr-color-chart-2: #58A5E4;
+    --svr-color-chart-3: #E9B452;
+    --svr-color-chart-4: #62BB78;
+    --svr-color-chart-5: #A59C98;
   }
   /* INVERSE-END */
   /* Print is always light; inverse bands stay inverse. */
@@ -292,7 +330,7 @@
       --svr-color-chart-4: #1C8742;
       --svr-color-chart-5: #69615D;
     }
-    :root:not([data-svr-print]) .svr-surface-inverse, [data-theme]:not([data-svr-print]) .svr-surface-inverse {
+    :root:not([data-svr-print]) .svr-surface-inverse:not([data-svr-print] *), [data-theme]:not([data-svr-print]) .svr-surface-inverse:not([data-svr-print] *) {
       color-scheme: dark;
       --svr-color-bg: var(--svr-palette-charcoal);
       --svr-color-text: var(--svr-palette-muted);

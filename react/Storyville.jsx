@@ -117,7 +117,7 @@ export const Radio = React.forwardRef(function Radio({ label, className, ...rest
   return <label className={cx('svr-choice', className)}><input ref={ref} type="radio" {...rest} className="svr-radio" /><span>{label}</span></label>;
 });
 
-// Light/dark mode. Needs js/theme.js loaded in the page <head> (it defines window.svrTheme).
+// Light/dark mode. Needs js/theme.js run in the page <head> (it defines window.svrTheme). Types: Storyville.d.ts.
 export function useTheme() {
   const [theme, setThemeState] = React.useState('light');
   React.useEffect(() => {
@@ -132,7 +132,10 @@ export function useTheme() {
 
 export function ThemeToggle({ className }) {
   const [theme] = useTheme();
+  const [pinned, setPinned] = React.useState(false);
+  React.useEffect(() => { setPinned(!!(window.svrTheme && window.svrTheme.pinned)); }, []);
   const dark = theme === 'dark';
+  if (pinned) return null; // always-light page: no toggle
   return (
     <button type="button" className={cx('svr-btn', 'svr-btn-sm', 'svr-theme-toggle', className)} aria-pressed={dark}
       onClick={() => window.svrTheme && window.svrTheme.toggle()}>

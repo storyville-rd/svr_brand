@@ -5,13 +5,13 @@ The single source of truth for Storyville RD's brand in code: color and type tok
 Brand rules (when to use which color, type and logo): **[docs/BRAND.md](docs/BRAND.md)**.
 Accessibility rules (alt text, keyboard, shared shortcuts, motion, captions, forms): **[docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md)**. Every app follows both.
 
-- **Installing a copy in an app** (required for the Tailwind bridge): **[INSTALL.md](INSTALL.md)**.
+- **Installing a copy in an app:** **[INSTALL.md](INSTALL.md)**. This is the recommended path for Vite, TanStack Start and Next.js apps, and it's required for the Tailwind bridge. `scripts/install.mjs` does the work, and the guide has recipes for each framework.
 - **What changed in each version, and how to upgrade:** **[CHANGELOG.md](CHANGELOG.md)**.
 - **Email:** **[docs/EMAIL.md](docs/EMAIL.md)**.
 
 ## Use it in an app
 
-Apps either link the files from the jsDelivr CDN (below) or install a copy of a release ([INSTALL.md](INSTALL.md)). Tailwind apps that use the bridge must install. Either way, every link below is pinned to a release tag (`@v3.1.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
+Apps either link the files from the jsDelivr CDN (below) or install a copy of a release ([INSTALL.md](INSTALL.md)). Tailwind apps that use the bridge must install. Either way, every link below is pinned to a release tag (`@v3.2.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
 
 ### 1. The `<head>`: layer order, theme, styles
 
@@ -19,16 +19,16 @@ Put these three lines at the very top of every app's `<head>`, in this order:
 
 ```html
 <style>@layer theme, base, svr, components, utilities;</style>
-<script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/js/theme.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/dist/storyville.css">
+<script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/js/theme.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/dist/storyville.css">
 ```
 
 Then add the favicons and browser theme color:
 
 ```html
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/icons/favicon.ico" sizes="48x48">
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/icons/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/icons/apple-touch-icon.png">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/icons/favicon.ico" sizes="48x48">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/icons/apple-touch-icon.png">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#211D1B" media="(prefers-color-scheme: dark)">
 ```
@@ -83,7 +83,7 @@ Also defined:
 - **Rules:** `--svr-rule-accent`, `--svr-rule-hairline`.
 - **Fonts:** `--svr-font-display`, `--svr-font-body`.
 - **Type classes:** `svr-display-h1`, `svr-subheading-h2`, `svr-h3`, `svr-h4`, `svr-eyebrow`, `svr-body`, `svr-ui`, `svr-caption`, `svr-table-header`, `svr-table-body`.
-- **Other classes:** `svr-prose` (long-form and rich-text content), `svr-link`, `svr-muted`, `svr-popover`, `svr-dialog`, `svr-overlay`, `svr-fieldset`.
+- **Other classes:** `svr-nav`, `svr-nav-item`, `svr-nav-label`, `svr-prose` (long-form and rich-text content), `svr-link`, `svr-muted`, `svr-popover`, `svr-dialog`, `svr-overlay`, `svr-fieldset`.
 
 Separate pieces are also available:
 
@@ -99,6 +99,7 @@ Every app carries a light/dark toggle. `js/theme.js` does the work; the `ThemeTo
 - Scripts can call `svrTheme.get()`, `svrTheme.set('light' | 'dark')`, `svrTheme.toggle()` and `svrTheme.reset()` (back to the device setting), and listen for the `svr-themechange` event on `window`.
 - React apps can use `useTheme()` from `react/Storyville.jsx`, which returns `[theme, setTheme]`.
 - Swap logos with the theme: charcoal files in light mode, off-white files in dark mode.
+- **Always-light pages:** render `<html data-theme="light" data-svr-pinned>` on the server for whole pages, and the toggle disappears. For part of a page, see the next point. Details are in [INSTALL.md](INSTALL.md#4-always-light-pages-client-facing-print-pdf).
 - **Pin part of a page to one theme:** `data-theme="light"` (or `"dark"`) works on any element, not just `<html>`. Client-facing pages and print views (like Proposal Lab's `/p/*` pages and PDFs) put `data-theme="light"` on `<html>`, or on the wrapper around client content inside a staff app.
 - **Printing is always light.**
 
@@ -115,7 +116,7 @@ Tailwind has to process the file, so it can't be linked from the CDN; install it
 ### 5. Logos
 
 ```html
-<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
+<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
 ```
 
 | File (in `logos/`) | Use | Alt text |
@@ -148,7 +149,7 @@ A logo's alt text is the text it contains; never add "logo" or "image of". Charc
   ```html
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.1.0/components/storyville.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.2.0/components/storyville.global.js"></script>
   ```
 
 ## Naming and layers
@@ -157,6 +158,8 @@ A logo's alt text is the text it contains; never add "logo" or "image of". Charc
 - All brand CSS is inside `@layer svr { … }`. To override a brand style, write the override in the app's `components` or `utilities` layer, or outside any layer. To override a token for one app, redefine it on `:root` in one of those places.
 
 ## Upgrading an app
+
+**From v3.1.0 to v3.2.0:** nothing breaks. TypeScript apps get types automatically; switch the app to `scripts/install.mjs` ([INSTALL.md](INSTALL.md)).
 
 **From v3.0.0 to v3.1.0:** nothing breaks. Bump the links, install the new release or copy in the new `react/Storyville.jsx`, and add the favicon lines. See [CHANGELOG.md](CHANGELOG.md).
 
@@ -209,6 +212,9 @@ css/components.css               component styles (source)
 components/storyville.global.js  components for plain HTML pages (window.Storyville)
 components/index.d.ts            component props
 react/Storyville.jsx             components and useTheme for React apps (copy in)
+react/Storyville.d.ts            TypeScript types for it, plus window.svrTheme
+js/theme.d.ts                    TypeScript types for theme.js alone
+scripts/install.mjs              installs a release into an app (zero dependencies)
 logos/                           8 logo PNGs + usage notes
 docs/BRAND.md                    brand guidelines
 docs/ACCESSIBILITY.md            alt text, keyboard, shortcuts, motion, captions, forms

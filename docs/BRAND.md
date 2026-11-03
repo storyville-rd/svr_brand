@@ -100,7 +100,10 @@ Every Storyville app supports both themes and has a visible light/dark toggle.
 - Never hard-code a color, or a light/dark pair of colors, in app CSS. Use the role tokens and the theme takes care of itself.
 - Check both themes before shipping: every screen, every state.
 - Logos switch too: charcoal versions in light mode, off-white versions in dark mode.
-- **Pin a part of a page to one theme:** put `data-theme="light"` (or `"dark"`) on any element and everything inside it uses that theme, whatever the rest of the page does. Client-facing pages, proposals and print views pin to light: put `data-theme="light"` on `<html>`, or on the wrapper around client content inside a staff app.
+- **Always-light pages** (anything a client sees, print views, pages rendered to PDF) set the theme in the server-rendered HTML. Otherwise a client whose computer is in dark mode gets a dark page, because the device setting applies until something says otherwise.
+  - For a whole page, render `<html data-theme="light" data-svr-pinned>`. The toggle then disappears and the theme can't change.
+  - For part of a page, such as a client preview inside a staff app, put `data-theme="light"` on the wrapper element. Everything inside, inverse bands included, stays light while the rest follows the toggle.
+  - `data-theme="dark"` works the same way.
 - **Printing is always light**, whatever the screen theme, so printouts and PDFs never come out charcoal.
 
 ## Typography
@@ -123,6 +126,25 @@ Wrap articles, proposals, help pages and anything people write in a rich-text ed
 
 - Links (`svr-link`, and every link inside `svr-prose`) are `svr-color-link` and always underlined. They thicken the underline and turn `svr-color-heading` on hover.
 - Selected text is Storyville Red with off-white text in both themes.
+
+## Navigation
+
+App headers and sidebars use `svr-nav`: always Soft Charcoal, in both themes, with a hairline edge. Inside it:
+
+- Items (`svr-nav-item`) are 14px semibold in Muted Off-White. They get a raised-charcoal fill on hover.
+- The current page (`aria-current="page"`) is a Storyville Red fill with Off-White text.
+- Section labels (`svr-nav-label`) are small uppercase muted text.
+
+## Components from app libraries
+
+Tabs, switches, tooltips, skeletons, spinners and pagination come from each app's own library (shadcn/Radix), styled with the role tokens:
+
+- **Tabs:** text tabs in `svr-color-text-muted`. The active tab is `svr-color-heading`, with a 3px `svr-color-accent` rule under it (`svr-rule-accent`). Arrow keys move between tabs.
+- **Switch:** the track is `svr-color-border-strong` when off and `svr-color-accent-fill` when on, with a `svr-color-bg` thumb. Give it a visible label; it's for settings that take effect immediately.
+- **Tooltip:** a small `svr-popover` with `svr-ui` text. It appears on hover and on keyboard focus, and never holds the only copy of important information.
+- **Skeleton:** `svr-color-surface-alt` blocks with no shimmer under reduced motion.
+- **Spinner:** a 2px `svr-color-accent` ring with an accessible label ("Loading").
+- **Pagination:** `sm` secondary buttons. The current page is a solid `svr-color-accent-fill` with `aria-current="page"`.
 
 ## Overlays
 

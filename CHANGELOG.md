@@ -2,6 +2,27 @@
 
 Every release is a git tag. Breaking releases (a new major number) list what each app has to change.
 
+## 3.2.0
+
+Everything in this release is an addition or a fix, so apps on 3.1.0 can update without changes.
+
+- **`react/Storyville.d.ts`:** full types for the React components and `useTheme`, plus the `window.svrTheme` global and the `svr-themechange` event. Strict TypeScript apps without `allowJs` now type-check imports of `Storyville.jsx`. There's also `js/theme.d.ts` for apps that only use `theme.js`.
+- **`scripts/install.mjs`:** a zero-dependency installer.
+  - `node install.mjs <tag> <dest> [--public <dir>]` resolves the tag to a commit, downloads every release file at that commit and verifies each against `manifest.json`, then swaps the copy in. It records the commit in `INSTALLED.json` and copies `theme.js` and the icons to a public folder.
+  - `--check` verifies an installed copy.
+  - The installer ships inside the installed copy, so apps run it with one npm script.
+- **Pinned pages:** `<html data-theme="light" data-svr-pinned>` keeps a page light. `theme.js` leaves it alone, and `ThemeToggle` renders nothing.
+- **Fix:** inverse bands inside a light-pinned wrapper on a dark page now stay charcoal, instead of turning off-white.
+- **`svr-nav`:** an always-charcoal header and sidebar surface, with `svr-nav-item` and `svr-nav-label`. The current page (`aria-current`) is a red fill.
+- **`INSTALL.md`:**
+  - Recipes for a Vite SPA, TanStack Start and Next.js.
+  - Which files are bundled and which are served from `public/`.
+  - `suppressHydrationWarning`.
+  - Always-light pages.
+  - The shadcn radius change (8px to 4px corners).
+  - TypeScript setup.
+- **Brand guidelines:** guidance for Tabs, Switch, Tooltip, Skeleton, Spinner and Pagination from app libraries.
+
 ## 3.1.0
 
 Everything in this release is an addition, so apps on 3.0.0 can update without changes.

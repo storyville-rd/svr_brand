@@ -49,7 +49,7 @@
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
-/* Storyville RD 3.1.0 — generated from tokens/tokens.json by scripts/build.mjs. Do not edit by hand. */
+/* Storyville RD 3.2.0 — generated from tokens/tokens.json by scripts/build.mjs. Do not edit by hand. */
 @layer svr {
   :root, [data-theme="light"] {
     color-scheme: light;
@@ -226,7 +226,7 @@
     --svr-color-chart-4: #62BB78;
     --svr-color-chart-5: #A59C98;
   }
-  [data-theme="dark"] .svr-surface-inverse {
+  [data-theme="dark"] .svr-surface-inverse:not([data-theme="dark"] [data-theme="light"] *) {
     color-scheme: light;
     --svr-color-bg: var(--svr-palette-offwhite);
     --svr-color-text: var(--svr-palette-charcoal);
@@ -264,7 +264,7 @@
     --svr-color-chart-5: #69615D;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .svr-surface-inverse {
+    :root:not([data-theme="light"]) .svr-surface-inverse:not([data-theme="light"] *) {
       color-scheme: light;
       --svr-color-bg: var(--svr-palette-offwhite);
       --svr-color-text: var(--svr-palette-charcoal);
@@ -301,6 +301,44 @@
       --svr-color-chart-4: #1C8742;
       --svr-color-chart-5: #69615D;
     }
+  }
+  /* Nav and sidebar surface: always the dark theme (charcoal), in both page themes. */
+  .svr-nav {
+    color-scheme: dark;
+    --svr-color-bg: var(--svr-palette-charcoal);
+    --svr-color-text: var(--svr-palette-muted);
+    --svr-color-heading: var(--svr-palette-offwhite);
+    --svr-color-surface-alt: var(--svr-palette-charcoal-alt);
+    --svr-color-border: var(--svr-palette-border-dark);
+    --svr-color-accent: var(--svr-palette-red-light);
+    --svr-color-accent-fill: var(--svr-palette-red);
+    --svr-color-on-accent: var(--svr-palette-offwhite);
+    --svr-color-text-muted: #A39A95;
+    --svr-color-border-strong: #8C837E;
+    --svr-color-focus: var(--svr-color-heading);
+    --svr-color-placeholder: var(--svr-color-text-muted);
+    --svr-color-disabled-bg: var(--svr-color-border);
+    --svr-color-disabled-text: var(--svr-color-heading);
+    --svr-color-link: var(--svr-color-accent);
+    --svr-color-link-hover: var(--svr-color-heading);
+    --svr-color-overlay: rgba(12, 10, 9, 0.72);
+    --svr-color-danger: #F08BA0;
+    --svr-color-danger-subtle: #3D1D24;
+    --svr-color-on-danger: #211D1B;
+    --svr-color-success: #76C2B0;
+    --svr-color-success-subtle: #1A322D;
+    --svr-color-on-success: #211D1B;
+    --svr-color-warning: #E3A94F;
+    --svr-color-warning-subtle: #3A2B14;
+    --svr-color-on-warning: #211D1B;
+    --svr-color-info: #8DB8E0;
+    --svr-color-info-subtle: #1B2B3A;
+    --svr-color-on-info: #211D1B;
+    --svr-color-chart-1: #E07B72;
+    --svr-color-chart-2: #58A5E4;
+    --svr-color-chart-3: #E9B452;
+    --svr-color-chart-4: #62BB78;
+    --svr-color-chart-5: #A59C98;
   }
   /* INVERSE-END */
   /* Print is always light; inverse bands stay inverse. */
@@ -343,7 +381,7 @@
       --svr-color-chart-4: #1C8742;
       --svr-color-chart-5: #69615D;
     }
-    :root:not([data-svr-print]) .svr-surface-inverse, [data-theme]:not([data-svr-print]) .svr-surface-inverse {
+    :root:not([data-svr-print]) .svr-surface-inverse:not([data-svr-print] *), [data-theme]:not([data-svr-print]) .svr-surface-inverse:not([data-svr-print] *) {
       color-scheme: dark;
       --svr-color-bg: var(--svr-palette-charcoal);
       --svr-color-text: var(--svr-palette-muted);
@@ -533,6 +571,17 @@
   border: 1px solid var(--svr-color-border-strong); border-top: var(--svr-rule-accent) solid var(--svr-color-accent);
   border-radius: var(--svr-radius-md); padding: var(--svr-space-6); box-shadow: none; }
 
+/* ---------- Nav and sidebar: always charcoal (the dark role values are generated for .svr-nav in tokens.css) ---------- */
+.svr-nav { background: var(--svr-color-bg); color: var(--svr-color-text); border-inline-end: 1px solid var(--svr-color-border);
+  font-family: var(--svr-font-body); padding: var(--svr-space-4) var(--svr-space-3); display: flex; flex-direction: column; gap: 2px; }
+.svr-nav-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--svr-color-text-muted);
+  margin: var(--svr-space-4) var(--svr-space-3) var(--svr-space-1); }
+.svr-nav-item { display: flex; align-items: center; gap: var(--svr-space-2); min-height: 40px; padding: 0 var(--svr-space-3);
+  border-radius: var(--svr-radius-sm); color: var(--svr-color-text); font-size: 14px; font-weight: 600; text-decoration: none; }
+.svr-nav-item:hover { background: var(--svr-color-surface-alt); color: var(--svr-color-heading); }
+.svr-nav-item[aria-current="page"], .svr-nav-item[aria-current="true"] { background: var(--svr-color-accent-fill); color: var(--svr-color-on-accent); }
+.svr-nav-item:focus-visible { outline: 2px solid var(--svr-color-focus); outline-offset: 2px; }
+
 /* ---------- Surface bands ---------- */
 .svr-surface { padding: var(--svr-space-12) var(--svr-space-8); background: var(--svr-color-bg); color: var(--svr-color-text); }
 .svr-surface-alt { background: var(--svr-color-surface-alt); }
@@ -582,6 +631,7 @@
   .svr-btn, .svr-badge { border: 2px solid ButtonText; }
   .svr-btn:disabled, .svr-btn[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
   .svr-card, .svr-callout, .svr-alert, .svr-popover, .svr-dialog, .svr-surface-inverse, .svr-surface-red { border: 1px solid CanvasText; }
+  .svr-nav-item[aria-current="page"], .svr-nav-item[aria-current="true"] { outline: 2px solid Highlight; }
   .svr-checkbox, .svr-radio, .svr-input, .svr-select, .svr-textarea { border-color: ButtonText; }
   .svr-checkbox:checked, .svr-radio:checked { background: Highlight; border-color: Highlight; }
   .svr-checkbox::before, .svr-radio::before { background: HighlightText; }

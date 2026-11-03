@@ -46,6 +46,7 @@ Everything that works with a mouse works with a keyboard alone, in a sensible or
 | `Input`, `Select`, `Textarea` | Native controls: Tab to reach, type or use arrow keys. Wrap each in `Field` so its label, help and error are announced. |
 | `Checkbox`, `Radio` | Space toggles a checkbox. In a radio group (inside a `fieldset` with a `legend`), arrow keys move between options. The whole label is clickable. |
 | `ThemeToggle` | A button: Enter or Space switches the theme. |
+| `svr-nav` items | Links: Tab moves through them and Enter follows. Mark the current page with `aria-current="page"`, so it's announced, not just shown in red. Wrap the nav in `<nav aria-label="Main">`. |
 | `Callout`, `Eyebrow`, `SectionHeader`, `Surface`, `Badge` | Not interactive; never focusable. |
 | `Alert` | Not focusable. `tone="danger"` is announced immediately (`role="alert"`); other tones are announced politely (`role="status"`). |
 

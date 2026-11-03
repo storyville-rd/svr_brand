@@ -138,6 +138,17 @@
   border: 1px solid var(--svr-color-border-strong); border-top: var(--svr-rule-accent) solid var(--svr-color-accent);
   border-radius: var(--svr-radius-md); padding: var(--svr-space-6); box-shadow: none; }
 
+/* ---------- Nav and sidebar: always charcoal (the dark role values are generated for .svr-nav in tokens.css) ---------- */
+.svr-nav { background: var(--svr-color-bg); color: var(--svr-color-text); border-inline-end: 1px solid var(--svr-color-border);
+  font-family: var(--svr-font-body); padding: var(--svr-space-4) var(--svr-space-3); display: flex; flex-direction: column; gap: 2px; }
+.svr-nav-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--svr-color-text-muted);
+  margin: var(--svr-space-4) var(--svr-space-3) var(--svr-space-1); }
+.svr-nav-item { display: flex; align-items: center; gap: var(--svr-space-2); min-height: 40px; padding: 0 var(--svr-space-3);
+  border-radius: var(--svr-radius-sm); color: var(--svr-color-text); font-size: 14px; font-weight: 600; text-decoration: none; }
+.svr-nav-item:hover { background: var(--svr-color-surface-alt); color: var(--svr-color-heading); }
+.svr-nav-item[aria-current="page"], .svr-nav-item[aria-current="true"] { background: var(--svr-color-accent-fill); color: var(--svr-color-on-accent); }
+.svr-nav-item:focus-visible { outline: 2px solid var(--svr-color-focus); outline-offset: 2px; }
+
 /* ---------- Surface bands ---------- */
 .svr-surface { padding: var(--svr-space-12) var(--svr-space-8); background: var(--svr-color-bg); color: var(--svr-color-text); }
 .svr-surface-alt { background: var(--svr-color-surface-alt); }
@@ -187,6 +198,7 @@
   .svr-btn, .svr-badge { border: 2px solid ButtonText; }
   .svr-btn:disabled, .svr-btn[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
   .svr-card, .svr-callout, .svr-alert, .svr-popover, .svr-dialog, .svr-surface-inverse, .svr-surface-red { border: 1px solid CanvasText; }
+  .svr-nav-item[aria-current="page"], .svr-nav-item[aria-current="true"] { outline: 2px solid Highlight; }
   .svr-checkbox, .svr-radio, .svr-input, .svr-select, .svr-textarea { border-color: ButtonText; }
   .svr-checkbox:checked, .svr-radio:checked { background: Highlight; border-color: Highlight; }
   .svr-checkbox::before, .svr-radio::before { background: HighlightText; }

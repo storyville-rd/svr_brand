@@ -111,6 +111,7 @@
       window.addEventListener('svr-themechange', on);
       return function () { window.removeEventListener('svr-themechange', on); };
     }, []);
+    if (window.svrTheme && window.svrTheme.pinned) return null; // always-light page: no toggle
     var dark = theme === 'dark';
     function toggle() {
       if (window.svrTheme) { window.svrTheme.toggle(); return; }

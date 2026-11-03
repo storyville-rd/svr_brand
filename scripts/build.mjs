@@ -32,12 +32,15 @@ o.push('  /* No data-theme yet (before theme.js runs, or without JS): follow the
 o.push(`  @media (prefers-color-scheme: ${second}) {`, `    :root:not([data-theme="${first}"]) {`, `      color-scheme: ${second};`, ...block(second, '      '), '    }', '  }');
 o.push('  /* INVERSE-START: an inverse band takes the opposite theme. */');
 o.push('  .svr-surface-inverse {', `    color-scheme: ${second};`, ...block(second, '    '), '  }');
-o.push(`  [data-theme="${second}"] .svr-surface-inverse {`, `    color-scheme: ${first};`, ...block(first, '    '), '  }');
-o.push(`  @media (prefers-color-scheme: ${second}) {`, `    :root:not([data-theme="${first}"]) .svr-surface-inverse {`, `      color-scheme: ${first};`, ...block(first, '      '), '    }', '  }');
+// The :not() skips bands inside a light wrapper within a dark page (client content in a dark staff app): those stay charcoal.
+o.push(`  [data-theme="${second}"] .svr-surface-inverse:not([data-theme="${second}"] [data-theme="${first}"] *) {`, `    color-scheme: ${first};`, ...block(first, '    '), '  }');
+o.push(`  @media (prefers-color-scheme: ${second}) {`, `    :root:not([data-theme="${first}"]) .svr-surface-inverse:not([data-theme="${first}"] *) {`, `      color-scheme: ${first};`, ...block(first, '      '), '    }', '  }');
+o.push('  /* Nav and sidebar surface: always the dark theme (charcoal), in both page themes. */');
+o.push('  .svr-nav {', `    color-scheme: ${second};`, ...block(second, '    '), '  }');
 o.push('  /* INVERSE-END */');
 o.push('  /* Print is always light; inverse bands stay inverse. */');
 o.push('  /* :not([data-svr-print]) only raises specificity so print beats the screen-theme rules above. */', '  @media print {', `    :root:not([data-svr-print]), [data-theme]:not([data-svr-print]) {`, `      color-scheme: ${first};`, ...block(first, '      '), '    }',
-  '    :root:not([data-svr-print]) .svr-surface-inverse, [data-theme]:not([data-svr-print]) .svr-surface-inverse {', `      color-scheme: ${second};`, ...block(second, '      '), '    }', '  }');
+  '    :root:not([data-svr-print]) .svr-surface-inverse:not([data-svr-print] *), [data-theme]:not([data-svr-print]) .svr-surface-inverse:not([data-svr-print] *) {', `      color-scheme: ${second};`, ...block(second, '      '), '    }', '  }');
 for (const g of t.type.groups) for (const s of g.styles) {
   const fam = s.family || g.family;
   o.push(`  .${s.name} { font-family: var(--svr-font-${fam}); font-size: ${s.fontSize}; line-height: ${s.lineHeight}; font-weight: ${s.fontWeight};${s.letterSpacing ? ` letter-spacing: ${s.letterSpacing};` : ''} }`);
