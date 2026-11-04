@@ -2,6 +2,25 @@
 
 Every release is a git tag. Breaking releases (a new major number) list what each app has to change.
 
+## 3.3.1
+
+Installer hardening from a real Windows install, with no CSS or component changes. Apps on 3.3.0 update by running `brand:install` with the new tag.
+
+- **Fix (Windows `EPERM`):** the installer no longer renames folders. Renaming a freshly filled folder inside a project failed on Windows 11 with VS Code open, both moving the old copy aside and putting the new one in place.
+  - It now stages and checks the release in the system temp directory.
+  - It backs up the current copy there, then writes files into the existing folders one by one, retrying locked files for about 8 seconds and skipping unchanged ones.
+  - It verifies the result and restores the backup on any failure.
+  - Error messages say what was tried, whether the restore worked, and what to close.
+- **Fix:** `--latest` (and every other mode) no longer calls `process.exit()`. Under Node 24 on Windows, exiting while a fetch connection was closing crashed with a libuv assertion (`UV_HANDLE_CLOSING`). The installer now sets `process.exitCode` and lets Node finish.
+- **New:**
+  - After installing, the installer runs `git check-ignore` on everything it wrote. It warns about ignored files, names the rule, and gives the `.gitignore` line to add.
+  - `--check` treats git-ignored files as problems.
+  - `--check --remote` verifies against the release's `manifest.json` on GitHub, which catches edits to both the files and the local manifest.
+- **`INSTALL.md`:**
+  - A new "Committing the install" section (the `dist` `.gitignore` trap).
+  - A "Checking in CI" section: a fresh clone must pass `brand:check` without installing.
+  - An updated Windows section.
+
 ## 3.3.0
 
 Installer and docs improvements, with no CSS or component changes. Apps on 3.2.0 update by running `brand:install` with the new tag.

@@ -9,19 +9,19 @@ There are two ways to use the brand in an app:
 
 `scripts/install.mjs` installs a release the same way in every app. It needs Node 18 or later and has no dependencies.
 
-Releases are git tags (`v3.3.0`); the installer and the CDN both read tags. Publishing a GitHub Release for a tag is optional.
+Releases are git tags (`v3.3.1`); the installer and the CDN both read tags. Publishing a GitHub Release for a tag is optional.
 
 **First time only**, get the script into the app at `vendor/svr_brand/scripts/install.mjs`. Choose one way:
 
-- **From the CDN:** download `https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/scripts/install.mjs`. This is easiest. jsDelivr caches tags, so a tag that was moved after release can briefly serve the old file. The first install replaces this copy with the checked one anyway.
+- **From the CDN:** download `https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/scripts/install.mjs`. This is easiest. jsDelivr caches tags, so a tag that was moved after release can briefly serve the old file. The first install replaces this copy with the checked one anyway.
 - **From GitHub at an exact commit:** download `https://raw.githubusercontent.com/storyville-rd/svr_brand/<commit-sha>/scripts/install.mjs`, using the commit shown on the tag's GitHub page.
-- **From a local checkout of svr_brand** (no download): `node ../svr_brand/scripts/install.mjs v3.3.0 vendor/svr_brand --public public/svr --docs docs/brand --from ../svr_brand`. This works offline. It checks the files against the checkout's manifest, but can't vouch for the checkout matching the tag, so check out the tag first.
+- **From a local checkout of svr_brand** (no download): `node ../svr_brand/scripts/install.mjs v3.3.1 vendor/svr_brand --public public/svr --docs docs/brand --from ../svr_brand`. This works offline. It checks the files against the checkout's manifest, but can't vouch for the checkout matching the tag, so check out the tag first.
 
 Then add these npm scripts to the app's `package.json`:
 
 ```json
 "scripts": {
-  "brand:install": "node vendor/svr_brand/scripts/install.mjs v3.3.0 vendor/svr_brand --public public/svr --docs docs/brand",
+  "brand:install": "node vendor/svr_brand/scripts/install.mjs v3.3.1 vendor/svr_brand --public public/svr --docs docs/brand",
   "brand:check": "node vendor/svr_brand/scripts/install.mjs --check vendor/svr_brand",
   "brand:latest": "node vendor/svr_brand/scripts/install.mjs --latest vendor/svr_brand"
 }
@@ -32,16 +32,18 @@ Run `npm run brand:install` to install or update, and change the tag in that lin
 What the script does:
 
 1. Looks up the commit for the tag through the GitHub API.
-2. Downloads `manifest.json` and every release file at that exact commit.
-3. Checks each file's size and SHA-256 against the manifest, and refuses a manifest whose version doesn't match the tag.
-4. Replaces `vendor/svr_brand/` with the new copy and writes `vendor/svr_brand/INSTALLED.json` (tag, version, resolved commit SHA, date).
-5. Copies the files the browser has to load as-is (`js/theme.js` and `icons/`) into `public/svr/`.
+2. Downloads `manifest.json` and every release file at that exact commit into a staging folder in the system temp directory, outside the app. It checks each file's size and SHA-256 against the manifest, and refuses a manifest whose version doesn't match the tag. **Nothing in the app is touched until every file has passed.**
+3. Backs up the current copy, also in the temp directory.
+4. Writes the new files into `vendor/svr_brand/` one by one, skipping files that haven't changed, and deletes files the release no longer has. It also writes `vendor/svr_brand/INSTALLED.json` (tag, version, resolved commit SHA, folders, date). It never renames folders; see Windows, below.
+5. Copies the files the browser has to load as-is (`js/theme.js` and `icons/`) into `public/svr/`. That folder can hold the app's other files; the installer only touches its own.
 6. With `--docs docs/brand`, installs the brand docs into that folder, checked against the manifest too, so people and Claude can read them inside the app. That covers `docs/BRAND.md`, `docs/ACCESSIBILITY.md`, `docs/EMAIL.md`, `docs/components/`, `docs/CLAUDE-snippet.md`, `README.md`, `CHANGELOG.md` and `INSTALL.md`.
 7. Writes a `.gitattributes` with `* -text` into each folder it owns, so git never changes their line endings.
+8. Verifies everything it wrote against the manifest. If any write or check fails, it puts the backup back and says what happened.
+9. Warns if git ignores any installed file, naming the rule and the line to add to `.gitignore` (see "Committing the install").
 
-If any check fails, nothing is written and the previous copy stays.
+`npm run brand:check` verifies an installed copy, and exits with an error if anything is missing, extra, edited or ignored by git. It checks the public and docs folders too, using the folders recorded at install time. A file that differs only in line endings is reported as such, with the fix.
 
-`npm run brand:check` verifies an installed copy, and exits with an error if anything is missing, extra or edited. It checks the public and docs folders too, using the folders recorded at install time. It's a good step for CI. A file that differs only in line endings is reported as such, with the fix.
+`--check --remote` also downloads `manifest.json` at the commit recorded in `INSTALLED.json`, and checks the files against that instead of the local copy. That catches someone editing both a file and the local manifest to match. It needs network access, so use it in CI rather than as a pre-commit check.
 
 `npm run brand:latest` prints the newest release tag and whether the app is behind. It uses one GitHub API request, so "ask Claude to update the brand" becomes:
 
@@ -55,6 +57,7 @@ Options:
 - `--commit <sha>`: skips the API lookup.
 - `--from <folder>`: installs from a local checkout.
 - `--docs <folder>`: also installs the docs (see above).
+- `--remote` (with `--check`): verifies against the release's manifest on GitHub.
 - `--repo owner/name`: installs from a different repo.
 
 `INSTALLED.json` holds the commit, not `VERSION`, because `VERSION` is a release file the manifest checks and has to stay unchanged.
@@ -77,9 +80,41 @@ If an app already has CRLF copies (for example, installed before 3.3.0), `brand:
 2. Commit the new `.gitattributes` files.
 3. Run `git add --renormalize .`.
 
-Folders the installer has open in another program (a running dev server, an editor or antivirus) can block the swap on Windows. The installer retries for a few seconds. If it still fails, it leaves the previous copy in place, removes its staging folder and says which folder was locked; stop the dev server and run it again.
+**Locked folders:** on Windows, renaming a folder that something has just opened fails with `EPERM`. VS Code's file watcher, a dev server or antivirus can all do this, and it happens much more inside a project than in a scratch folder. That's why, since 3.3.1, the installer never renames folders: it stages in the system temp directory and writes files into the existing folders.
+
+A single file can still be locked. The installer retries each write for about 8 seconds. If that file stays locked, it restores the previous copy and names the file. Stop the dev server (or close whatever has the file open) and run the install again. Unchanged files aren't rewritten, so a locked file that didn't change doesn't block anything.
 
 **Never edit installed files in an app.** Change the brand in the svr_brand repo and install the new release. Edits made in an app are lost at the next install, and `brand:check` flags them.
+
+### Committing the install
+
+The installed folders are part of the app: commit them like source code, so every clone and every CI build has them.
+
+**Watch out for `dist` in `.gitignore`.** Most Vite and Next.js templates ignore every folder named `dist`, which silently drops `vendor/svr_brand/dist/storyville.css` and `tailwind-bridge.css` from commits. The app builds on your machine and fails on the CI host.
+
+The installer warns about this, and `brand:check` fails on it. To fix it:
+
+1. Add a re-include line **after** the `dist` rule in the repo's root `.gitignore`, adjusted to your install path:
+
+   ```
+   dist
+   !/vendor/svr_brand/dist/
+   ```
+
+2. Confirm git now sees the files: `git status` should list them, and after committing, `git ls-files vendor/svr_brand/dist` should print both CSS files.
+
+Git can't re-include a file inside a folder that's ignored as a whole. If `.gitignore` ignores `vendor/` itself, change that rule (for example to `vendor/*` followed by `!vendor/svr_brand/`).
+
+### Checking in CI
+
+A fresh clone should pass `npm run brand:check` **without** running the installer. If it doesn't, something wasn't committed, or was committed with the wrong line endings. Add it to CI before the build:
+
+```yaml
+- run: npm ci
+- run: npm run brand:check            # files present, unedited, not git-ignored
+- run: node vendor/svr_brand/scripts/install.mjs --check vendor/svr_brand --remote   # optional: against the release on GitHub
+- run: npm run build
+```
 
 ## 2. What gets bundled and what's served as-is
 

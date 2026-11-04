@@ -11,7 +11,7 @@ Accessibility rules (alt text, keyboard, shared shortcuts, motion, captions, for
 
 ## Use it in an app
 
-Apps either link the files from the jsDelivr CDN (below) or install a copy of a release ([INSTALL.md](INSTALL.md)). Tailwind apps that use the bridge must install. Either way, every link below is pinned to a release tag (`@v3.3.0`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
+Apps either link the files from the jsDelivr CDN (below) or install a copy of a release ([INSTALL.md](INSTALL.md)). Tailwind apps that use the bridge must install. Either way, every link below is pinned to a release tag (`@v3.3.1`). Pin your app to a tag, never `@main`, so a brand change only reaches an app when you choose to update it.
 
 ### 1. The `<head>`: layer order, theme, styles
 
@@ -19,16 +19,16 @@ Put these three lines at the very top of every app's `<head>`, in this order:
 
 ```html
 <style>@layer theme, base, svr, components, utilities;</style>
-<script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/js/theme.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/dist/storyville.css">
+<script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/js/theme.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/dist/storyville.css">
 ```
 
 Then add the favicons and browser theme color:
 
 ```html
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/icons/favicon.ico" sizes="48x48">
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/icons/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/icons/apple-touch-icon.png">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/icons/favicon.ico" sizes="48x48">
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/icons/apple-touch-icon.png">
 <meta name="theme-color" content="#FAF8F5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#211D1B" media="(prefers-color-scheme: dark)">
 ```
@@ -116,7 +116,7 @@ Tailwind has to process the file, so it can't be linked from the CDN; install it
 ### 5. Logos
 
 ```html
-<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
+<img src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/logos/storyville-logo-horizontal-charcoal.png" alt="Storyville RD">
 ```
 
 | File (in `logos/`) | Use | Alt text |
@@ -149,7 +149,7 @@ A logo's alt text is the text it contains; never add "logo" or "image of". Charc
   ```html
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.0/components/storyville.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/components/storyville.global.js"></script>
   ```
 
 ## Naming and layers
@@ -158,6 +158,8 @@ A logo's alt text is the text it contains; never add "logo" or "image of". Charc
 - All brand CSS is inside `@layer svr { … }`. To override a brand style, write the override in the app's `components` or `utilities` layer, or outside any layer. To override a token for one app, redefine it on `:root` in one of those places.
 
 ## Upgrading an app
+
+**From v3.3.0 to v3.3.1:** nothing breaks. Run `brand:install` with the new tag, then check the warning about git-ignored files ([INSTALL.md](INSTALL.md#committing-the-install)).
 
 **From v3.2.0 to v3.3.0:** nothing breaks. Update the app's copy of `scripts/install.mjs` by running its `brand:install` with the new tag. Consider adding `--docs docs/brand` and the CLAUDE.md snippet ([INSTALL.md](INSTALL.md)).
 
