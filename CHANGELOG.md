@@ -2,6 +2,12 @@
 
 Every release is a git tag. Breaking releases (a new major number) list what each app has to change.
 
+## 3.3.2
+
+Docs only: no CSS, component or installer code changes.
+
+- **`INSTALL.md`:** apps upgrading from a copy older than 3.3.1 must run the new release's `install.mjs` once from outside `vendor/`. `npm run brand:install` runs the old installer already in `vendor/svr_brand/`, which still renames folders and fails with `EPERM` on Windows. The guide gives the two commands for that one-time step.
+
 ## 3.3.1
 
 Installer hardening from a real Windows install, with no CSS or component changes. Apps on 3.3.0 update by running `brand:install` with the new tag.

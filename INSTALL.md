@@ -9,25 +9,34 @@ There are two ways to use the brand in an app:
 
 `scripts/install.mjs` installs a release the same way in every app. It needs Node 18 or later and has no dependencies.
 
-Releases are git tags (`v3.3.1`); the installer and the CDN both read tags. Publishing a GitHub Release for a tag is optional.
+Releases are git tags (`v3.3.2`); the installer and the CDN both read tags. Publishing a GitHub Release for a tag is optional.
 
 **First time only**, get the script into the app at `vendor/svr_brand/scripts/install.mjs`. Choose one way:
 
-- **From the CDN:** download `https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.1/scripts/install.mjs`. This is easiest. jsDelivr caches tags, so a tag that was moved after release can briefly serve the old file. The first install replaces this copy with the checked one anyway.
+- **From the CDN:** download `https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.2/scripts/install.mjs`. This is easiest. jsDelivr caches tags, so a tag that was moved after release can briefly serve the old file. The first install replaces this copy with the checked one anyway.
 - **From GitHub at an exact commit:** download `https://raw.githubusercontent.com/storyville-rd/svr_brand/<commit-sha>/scripts/install.mjs`, using the commit shown on the tag's GitHub page.
-- **From a local checkout of svr_brand** (no download): `node ../svr_brand/scripts/install.mjs v3.3.1 vendor/svr_brand --public public/svr --docs docs/brand --from ../svr_brand`. This works offline. It checks the files against the checkout's manifest, but can't vouch for the checkout matching the tag, so check out the tag first.
+- **From a local checkout of svr_brand** (no download): `node ../svr_brand/scripts/install.mjs v3.3.2 vendor/svr_brand --public public/svr --docs docs/brand --from ../svr_brand`. This works offline. It checks the files against the checkout's manifest, but can't vouch for the checkout matching the tag, so check out the tag first.
 
 Then add these npm scripts to the app's `package.json`:
 
 ```json
 "scripts": {
-  "brand:install": "node vendor/svr_brand/scripts/install.mjs v3.3.1 vendor/svr_brand --public public/svr --docs docs/brand",
+  "brand:install": "node vendor/svr_brand/scripts/install.mjs v3.3.2 vendor/svr_brand --public public/svr --docs docs/brand",
   "brand:check": "node vendor/svr_brand/scripts/install.mjs --check vendor/svr_brand",
   "brand:latest": "node vendor/svr_brand/scripts/install.mjs --latest vendor/svr_brand"
 }
 ```
 
 Run `npm run brand:install` to install or update, and change the tag in that line to move to a new release. The install includes the script itself, so it stays current.
+
+**Upgrading from a copy older than v3.3.1? Run the new installer once from outside `vendor/`.** `npm run brand:install` runs the installer that's already in `vendor/svr_brand/`, which is the old one. Releases before 3.3.1 rename folders, which fails with `EPERM` on Windows whenever an editor or watcher has the project open. For that one upgrade, download the new script somewhere outside `vendor/` and run it from the app's root folder:
+
+```
+curl -fsSL -o ../svr-install.mjs https://cdn.jsdelivr.net/gh/storyville-rd/svr_brand@v3.3.2/scripts/install.mjs
+node ../svr-install.mjs v3.3.2 vendor/svr_brand --public public/svr --docs docs/brand
+```
+
+The first line works in PowerShell and Command Prompt on Windows 10 and 11, as well as in macOS and Linux terminals. Use the same `--public` and `--docs` folders as the app's `brand:install` script. Running the script from a local checkout of svr_brand (`--from`, above) works too. Once the app has v3.3.1 or later, `npm run brand:install` is safe again and you can delete `../svr-install.mjs`.
 
 What the script does:
 
@@ -80,7 +89,7 @@ If an app already has CRLF copies (for example, installed before 3.3.0), `brand:
 2. Commit the new `.gitattributes` files.
 3. Run `git add --renormalize .`.
 
-**Locked folders:** on Windows, renaming a folder that something has just opened fails with `EPERM`. VS Code's file watcher, a dev server or antivirus can all do this, and it happens much more inside a project than in a scratch folder. That's why, since 3.3.1, the installer never renames folders: it stages in the system temp directory and writes files into the existing folders.
+**Locked folders:** on Windows, renaming a folder that something has just opened fails with `EPERM`. VS Code's file watcher, a dev server or antivirus can all do this, and it happens much more inside a project than in a scratch folder. That's why, since 3.3.1, the installer never renames folders: it stages in the system temp directory and writes files into the existing folders. An app with an older installed copy has to make the jump to 3.3.1 or later once with the new script run from outside `vendor/` (see "Upgrading from a copy older than v3.3.1", above).
 
 A single file can still be locked. The installer retries each write for about 8 seconds. If that file stays locked, it restores the previous copy and names the file. Stop the dev server (or close whatever has the file open) and run the install again. Unchanged files aren't rewritten, so a locked file that didn't change doesn't block anything.
 

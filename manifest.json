@@ -1,26 +1,26 @@
 {
   "name": "svr_brand",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "files": [
     {
       "path": "CHANGELOG.md",
-      "bytes": 8462,
-      "sha256": "4fb6c8bbf4a0b8550535f5eb9845af866d65711a845a9ffec42cf1c7fe1d47eb"
+      "bytes": 8863,
+      "sha256": "1e7987566206515a0f022f8b1899a2e6beee15b9c751f09ff2b13ee2af5f850a"
     },
     {
       "path": "INSTALL.md",
-      "bytes": 16783,
-      "sha256": "09eb23963cf01ea18d7c04f6a1a0975795f638f82755790eee23f57164b2bd41"
+      "bytes": 18009,
+      "sha256": "f4615a173b5b9094f4427d1a153bde8a462b28f9f062843deba5c46f32b9c0ca"
     },
     {
       "path": "README.md",
-      "bytes": 16547,
-      "sha256": "65a3061b7d4e74859efeba3500fa5ea4f5b228a0b50b456f86c2549d3548f040"
+      "bytes": 16812,
+      "sha256": "5162aff7cd2e8230d71ed371d40536f7eb203edc432ea32c985ab1eec8660719"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "ef2a79c2f7dc37800a73fd9930b307824ce20af920cbc7159323456418e77e6b"
+      "sha256": "abba5fcd6d1275d62d78e09d88276dcf264d2137f85323ab50eadddcc31aeea9"
     },
     {
       "path": "components/index.d.ts",
@@ -40,12 +40,12 @@
     {
       "path": "dist/storyville.css",
       "bytes": 38688,
-      "sha256": "6d33f7af5039b012001018c24183b126da9c593efc1e6ce52a88d14fbdb2654e"
+      "sha256": "9ef553365df2e601a79275afc5c645eeef480c021f44824bd3bb3fa0e564a8fc"
     },
     {
       "path": "dist/tailwind-bridge.css",
       "bytes": 5227,
-      "sha256": "4021bede98e418bc8c0edfc199f78a0874ba2dd6bdd8866c49be395ffa5ef36b"
+      "sha256": "aa59f5cb0546d41311d4f8ace77177265e87d5954cdfa3385e9e8da702bb34ba"
     },
     {
       "path": "docs/ACCESSIBILITY.md",
@@ -59,8 +59,8 @@
     },
     {
       "path": "docs/CLAUDE-snippet.md",
-      "bytes": 2935,
-      "sha256": "3bff5098eae2d31771715bf0910f31ac392a12d88fc60f60bb7ef0048a23f62a"
+      "bytes": 3069,
+      "sha256": "0eaafcb6fd02064cb03f3777f84203906520d083e202fb175094343fcdae8772"
     },
     {
       "path": "docs/EMAIL.md",
@@ -270,7 +270,7 @@
     {
       "path": "tokens/tokens.css",
       "bytes": 16971,
-      "sha256": "d9d9854c733cf889bb0dd8ba2c93ee1c0418f3761ea5210531dbda4009d12c11"
+      "sha256": "c0196811a7a679b0609f4c2b3520a29f1036e5ce9918c51b9a7423b6818c6138"
     },
     {
       "path": "tokens/tokens.json",
